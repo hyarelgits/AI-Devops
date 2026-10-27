@@ -1,3 +1,258 @@
 
+Right now we only created 2 sample documents:
 
+Plain Text
+docs/linux/linux-basic.txt
+docs/runbooks/db-recovery.txt
+ 
+
+But remember our folder structure is:
+
+Plain Text
+docs
+├── linux
+├── security
+├── network
+├── runbooks
+└── incidents
+
+If only 2 files exist, the AI has very little knowledge. We must populate all folders.
+
+docs/linux
+
+Already created:
+
+Plain Text
+linux-basic.txt
+ 
+
+Create more files:
+
+Shell
+nano docs/linux/file-management.txt
+
+Content:
+
+Plain Text
+Linux File Management
+ 
+ls = list files
+ 
+cp = copy files
+ 
+mv = move files
+ 
+rm = remove files
+Shell
+nano docs/linux/process-management.txt
+
+Content:
+
+Plain Text
+Linux Process Management
+ 
+ps aux = show processes
+ 
+top = monitor processes
+ 
+kill PID = stop process
+docs/security
+
+Create:
+
+Shell
+nano docs/security/password-policy.txt
+
+Content:
+
+Plain Text
+Password Policy
+ 
+Minimum length 8
+ 
+Use uppercase letters
+ 
+Use lowercase letters
+ 
+Use numbers
+ 
+Change password every 90 days
+Shell
+nano docs/security/firewall-basics.txt
+
+Content:
+
+Plain Text
+Firewall Basics
+ 
+Firewall controls network access.
+ 
+Allow trusted traffic.
+ 
+Block unauthorized traffic.
+docs/network
+
+Create:
+
+Shell
+nano docs/network/network-basics.txt
+
+Content:
+
+Plain Text
+Network Basics
+ 
+IP Address identifies a device.
+ 
+DNS converts names to IP addresses.
+ 
+Gateway connects networks.
+Shell
+nano docs/network/troubleshooting.txt
+
+Content:
+
+Plain Text
+Network Troubleshooting
+ 
+Use ping to test connectivity.
+ 
+Use traceroute to identify path issues.
+ 
+Check DNS resolution.
+docs/runbooks
+
+Already created:
+
+Plain Text
+db-recovery.txt
+
+Create another:
+
+Shell
+nano docs/runbooks/server-restart.txt
+
+Content:
+
+Plain Text
+Server Restart Procedure
+ 
+Step 1 Notify users
+ 
+Step 2 Verify backups
+ 
+Step 3 Restart service
+ 
+Step 4 Validate application
+ 
+Step 5 Confirm service availability
+docs/incidents
+
+Create:
+
+Shell
+nano docs/incidents/cpu-high.txt
+
+Content:
+
+Plain Text
+Incident Report
+ 
+Issue: High CPU Usage
+ 
+Observed CPU: 95%
+ 
+Impact: Application slow
+ 
+Resolution: Restarted service and optimized process.
+Shell
+nano docs/incidents/database-down.txt
+
+Content:
+
+Plain Text
+Incident Report
+ 
+Issue: Database Service Down
+ 
+Impact: Application unavailable
+ 
+Resolution: Restored database service and verified connectivity.
+After Creating All Files
+
+Check structure:
+
+Shell
+find docs -type f
+
+Expected:
+
+Plain Text
+docs/linux/linux-basic.txt
+docs/linux/file-management.txt
+docs/linux/process-management.txt
+ 
+docs/security/password-policy.txt
+docs/security/firewall-basics.txt
+ 
+docs/network/network-basics.txt
+docs/network/troubleshooting.txt
+ 
+docs/runbooks/db-recovery.txt
+docs/runbooks/server-restart.txt
+ 
+docs/incidents/cpu-high.txt
+docs/incidents/database-down.txt
+Why Are We Creating These Files?
+
+Later, when a user asks:
+
+Plain Text
+How do I restart a server?
+
+AI will read:
+
+Plain Text
+docs/runbooks/server-restart.txt
+
+When user asks:
+
+Plain Text
+What is DNS?
+
+AI will read:
+
+Plain Text
+docs/network/network-basics.txt
+
+When user asks:
+
+Plain Text
+What is password policy?
+
+AI will read:
+
+Plain Text
+docs/security/password-policy.txt
+ 
+
+So these files become the knowledge books for the AI. The more documents you add, the smarter your RAG system becomes.
+
+Minimum for Practice
+
+Create at least:
+
+Plain Text
+3 Linux files
+2 Security files
+2 Network files
+2 Runbook files
+2 Incident files
+
+Total:
+
+Plain Text
+11 documents
+
+This is enough to start the RAG implementation in the next phase.
 
