@@ -1,0 +1,1010 @@
+first: What is RAG?
+
+RAG = Retrieval Augmented Generation
+
+Don't worry about the big name.
+
+Think of RAG as:
+
+Plain Text
+Open Book Exam
+
+Without RAG:
+
+Plain Text
+Question
+↓
+AI guesses answer
+
+With RAG:
+
+Plain Text
+Question
+↓
+Search documents
+↓
+Find correct content
+↓
+Give content to AI
+↓
+AI answers
+Our Project Example
+
+Suppose you have:
+
+Plain Text
+docs/linux/linux-basic.txt
+ 
+docs/security/firewall-basics.txt
+ 
+docs/runbooks/db-recovery.txt
+
+User asks:
+
+Plain Text
+How do I recover a database?
+
+AI should answer using:
+
+Plain Text
+db-recovery.txt
+
+This entire process is called RAG.
+
+RAG Architecture
+Plain Text
+Documents
+↓
+Read Documents
+↓
+Chunk Documents
+↓
+Create Embeddings
+↓
+Store in ChromaDB
+↓
+User Question
+↓
+Question Embedding
+↓
+Search ChromaDB
+↓
+Relevant Chunks
+↓
+Qwen
+↓
+Final Answer
+
+Let's understand each step.
+
+STEP 1 - Documents
+
+We already created:
+
+Plain Text
+docs/
+├── linux
+├── security
+├── network
+├── runbooks
+└── incidents
+
+Example:
+
+Plain Text
+docs/runbooks/db-recovery.txt
+
+Content:
+
+Plain Text
+Database Recovery
+ 
+Step 1 Take backup
+ 
+Step 2 Restore database
+ 
+Step 3 Verify tables
+ 
+Step 4 Start application
+Why?
+
+AI can't learn company knowledge automatically.
+
+You must provide documents.
+
+Think:
+
+Plain Text
+Books for student
+
+Without books:
+
+Plain Text
+No learning
+STEP 2 - Read Documents
+
+File:
+
+Plain Text
+rag/read_docs.py
+
+Job:
+
+Plain Text
+Open all files
+Read contents
+
+Flow:
+
+Plain Text
+Document
+↓
+Python Reads
+
+Example:
+
+Before:
+
+Plain Text
+linux-basic.txt
+
+Stored on disk.
+
+After:
+
+Plain Text
+Python has content in memory.
+STEP 3 - Chunking
+
+File:
+
+Plain Text
+rag/chunk_docs.py
+Why Chunking?
+
+Suppose document is:
+
+Plain Text
+500 Pages
+
+AI cannot efficiently search the entire book.
+
+Split into pieces.
+
+Example:
+
+Plain Text
+Chunk 1
+Chunk 2
+Chunk 3
+Chunk 4
+Kid Example
+
+Big Pizza 🍕
+
+Before:
+
+Plain Text
+One Huge Pizza
+
+After:
+
+Plain Text
+Slice 1
+Slice 2
+Slice 3
+Slice 4
+
+Easy to handle.
+
+STEP 4 - Create Embeddings
+
+File:
+
+Plain Text
+rag/embeddings.py
+
+Most important step.
+
+What is Embedding?
+
+Convert text into numbers.
+
+Example:
+
+Text:
+
+Plain Text
+How to recover database?
+
+AI sees:
+
+Plain Text
+[-0.22, 0.44, 0.81....]
+
+Thousands of numbers.
+
+Why?
+
+Computers understand numbers better than sentences.
+
+Example:
+
+These sentences mean similar things:
+
+Plain Text
+How to recover database?
+ 
+How do I restore database?
+
+Embeddings place both near each other.
+
+STEP 5 - ChromaDB
+
+Folder:
+
+Plain Text
+chroma_db
+What is ChromaDB?
+
+Special database for embeddings.
+
+Think:
+
+Plain Text
+Library Index
+
+Normal library:
+
+Plain Text
+Science → Shelf A
+ 
+Math → Shelf B
+
+AI Library:
+
+Plain Text
+Database Recovery → Vector 123
+ 
+Firewall → Vector 456
+
+Stored in ChromaDB.
+
+STEP 6 - Ingestion
+
+File:
+
+Plain Text
+rag/ingest.py
+
+Job:
+
+Plain Text
+Read Documents
+↓
+Chunk
+↓
+Embeddings
+↓
+Store ChromaDB
+
+Example
+
+Document:
+
+Plain Text
+db-recovery.txt
+
+becomes:
+
+Plain Text
+Chunk
+↓
+ 
+Embedding
+ 
+↓
+ 
+Stored in ChromaDB
+
+This is called:
+
+Plain Text
+Indexing
+STEP 7 - User Question
+
+User asks:
+
+Plain Text
+How do I recover database?
+
+Now RAG starts working.
+
+STEP 8 - Convert Question to Embedding
+
+Question:
+
+Plain Text
+How do I recover database?
+
+becomes:
+
+Plain Text
+Vector Numbers
+
+Example:
+
+Plain Text
+[0.55, 0.22, 0.88....]
+Why?
+
+Because ChromaDB stores vectors.
+
+Need vector-to-vector comparison.
+
+STEP 9 - Search ChromaDB
+
+File:
+
+Plain Text
+rag/search.py
+
+Question vector:
+
+Plain Text
+Database Recovery
+
+Searches:
+
+Plain Text
+All stored vectors
+
+Finds best match:
+
+Plain Text
+db-recovery.txt
+
+because it talks about:
+
+Plain Text
+Database Recovery
+STEP 10 - Retrieve Chunks
+
+Found:
+
+Plain Text
+Database Recovery
+ 
+Step 1 Backup
+ 
+Step 2 Restore Database
+ 
+Step 3 Verify Tables
+
+Returned to RAG.
+
+This is called:
+
+Plain Text
+Context Retrieval
+STEP 11 - Send Context to Qwen
+
+File:
+
+Plain Text
+rag/query.py
+
+Qwen receives:
+
+Plain Text
+Question:
+ 
+How to recover database?
+ 
+Context:
+ 
+Database Recovery
+ 
+Step 1 Backup
+ 
+Step 2 Restore Database
+ 
+Step 3 Verify Tables
+STEP 12 - Qwen Generates Answer
+
+Qwen now answers:
+
+Plain Text
+Follow these steps:
+ 
+1. Take backup
+ 
+2. Restore database
+ 
+3. Verify tables
+ 
+4. Start application
+
+Notice:
+
+Qwen did not guess.
+
+Qwen used company document.
+
+STEP 13 - Show User
+
+Final result:
+
+Plain Text
+User Question
+↓
+RAG Search
+↓
+ChromaDB
+↓
+Retrieve Context
+↓
+Qwen
+↓
+Answer
+↓
+User
+Complete RAG Workflow
+Plain Text
+docs/
+↓
+ 
+read_docs.py
+↓
+ 
+chunk_docs.py
+↓
+ 
+embeddings.py
+↓
+ 
+ingest.py
+↓
+ 
+ChromaDB
+↓
+ 
+User Question
+↓
+ 
+search.py
+↓
+ 
+Retrieve Context
+↓
+ 
+query.py
+↓
+ 
+Qwen
+↓
+ 
+Final Answer
+What Each RAG File Does
+read_docs.py
+Plain Text
+Reads documentation
+chunk_docs.py
+Plain Text
+Splits large documents
+embeddings.py
+Plain Text
+Converts text into vectors
+ingest.py
+Plain Text
+Stores vectors in ChromaDB
+search.py
+Plain Text
+Searches relevant vectors
+query.py
+Plain Text
+Combines results with Qwen
+and generates final answer
+Real Project Example
+Plain Text
+Employee:
+How to restart server?
+↓
+ 
+search.py
+ 
+↓
+ 
+Finds:
+ 
+server-restart.txt
+ 
+↓
+ 
+Qwen Reads
+ 
+↓
+ 
+Generates:
+ 
+Step 1 Notify users
+Step 2 Verify backups
+Step 3 Restart service
+Step 4 Validate application
+ 
+↓
+ 
+Employee gets answer
+
+That is the complete RAG process from document creation all the way to the final AI answer in your project.
+
+show me this file inside content
+
+Absolutely. Those files are the main RAG pipeline. Think of them as workers in a factory.
+
+Plain Text
+Documents
+↓
+loader.py
+↓
+embed.py
+↓
+ingest.py
+↓
+ChromaDB
+↓
+search.py
+↓
+query.py
+↓
+Qwen
+↓
+Answer
+Folder Structure
+Plain Text
+rag
+├── loader.py
+├── embed.py
+├── ingest.py
+├── search.py
+└── query.py
+
+
+
+1. loader.py
+Purpose
+
+Read all documents from:
+
+Plain Text
+docs/linux
+docs/security
+docs/network
+docs/runbooks
+docs/incidents
+Workflow
+Plain Text
+File on Disk
+↓
+Open File
+↓
+Read Content
+↓
+Return Text
+Example Content
+Python
+
+
+loader.py
+
+
+
+import os
+
+DOCUMENTS = []
+
+for root, dirs, files in os.walk("../docs"):
+    for file in files:
+        path = os.path.join(root, file)
+
+        with open(path, "r") as f:
+            text = f.read()
+
+        DOCUMENTS.append(
+            {
+                "file": file,
+                "content": text
+            }
+        )
+
+print(DOCUMENTS)
+
+
+
+---------------------
+
+
+
+
+What Happens?
+
+Suppose file contains:
+
+Plain Text
+Database Recovery
+ 
+Step 1 Backup
+ 
+Step 2 Restore
+
+
+Output becomes:
+
+Python
+[
+{
+"file":"db-recovery.txt",
+"content":"Database Recovery Step 1 Backup..."
+}
+]-----------------------------
+
+
+
+
+
+2. embed.py
+Purpose
+
+Convert text into vectors.
+
+Why?
+
+Computer cannot understand:
+
+Plain Text
+Database Recovery
+
+directly.
+
+Convert it into numbers.
+
+Workflow
+Plain Text
+Text
+↓
+Embedding Model
+↓
+Vector Numbers
+Example Content
+
+
+embed.py
+
+from sentence_transformers import SentenceTransformer
+
+model = SentenceTransformer(
+    "all-MiniLM-L6-v2"
+)
+
+text = "How to recover database"
+
+embedding = model.encode(text)
+
+print(embedding)
+
+
+Output
+Plain Text
+[0.44, -0.23, 0.12, 0.88.....]
+
+Thousands of numbers.
+
+
+--------------------------------------
+
+
+3. ingest.py
+Purpose
+
+Save embeddings inside ChromaDB.
+
+Workflow
+Plain Text
+Documents
+↓
+Embeddings
+↓
+ChromaDB
+Example Content
+
+
+ingest.py
+
+
+
+import chromadb
+
+client = chromadb.PersistentClient(
+    path="../chroma_db"
+)
+
+collection = client.get_or_create_collection(
+    "enterprise_docs"
+)
+
+collection.add(
+    ids=["1"],
+    documents=[
+        "Database Recovery Step 1 Backup"
+    ]
+)
+
+print("Stored")
+
+
+----
+
+
+What Happens?
+
+Before:
+
+Plain Text
+Document only
+
+After:
+
+Plain Text
+Document
++
+Embedding
++
+ID
+
+Stored permanently.
+
+
+
+---------
+
+
+
+4. search.py
+Purpose
+
+Search ChromaDB.
+
+User Question
+Plain Text
+How to recover database?
+Workflow
+Plain Text
+Question
+↓
+Embedding
+↓
+Search ChromaDB
+↓
+Best Match
+Example Content
+
+search.py
+
+
+import chromadb
+
+client = chromadb.PersistentClient(
+    path="../chroma_db"
+)
+
+collection = client.get_collection(
+    "enterprise_docs"
+)
+
+result = collection.query(
+    query_texts=[
+        "How to recover database?"
+    ],
+    n_results=3
+)
+
+print(result)
+
+
+----
+
+
+Output
+Plain Text
+db-recovery.txt
+
+Found.
+
+
+
+----------------
+
+5. query.py
+Purpose
+
+Final RAG step.
+
+Combines:
+
+Plain Text
+Question
++
+Retrieved Documents
++
+Qwen
+Workflow
+Plain Text
+User Question
+↓
+ 
+search.py
+ 
+↓
+ 
+Retrieved Context
+ 
+↓
+ 
+Qwen
+ 
+↓
+ 
+Final Answer
+Example Content
+
+
+
+import subprocess
+
+context = """
+Database Recovery
+
+Step 1 Backup
+
+Step 2 Restore Database
+"""
+
+question = "How to recover database?"
+
+prompt = f"""
+Answer using this context only.
+
+Context:
+{context}
+
+Question:
+{question}
+"""
+
+subprocess.run(
+ [
+   "ollama",
+   "run",
+   "qwen2.5:3b",
+   prompt
+ ]
+)
+
+
+
+
+------------
+
+
+
+Output
+Plain Text
+To recover the database:
+ 
+1. Take backup
+2. Restore database
+3. Verify data
+4. Start application
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+
+End-to-End Example
+User
+Plain Text
+How to recover database?
+loader.py
+
+Reads:
+
+Plain Text
+db-recovery.txt
+embed.py
+
+Creates:
+
+Plain Text
+Vector
+ingest.py
+
+Stores vector in:
+
+Plain Text
+ChromaDB
+search.py
+
+Finds:
+
+Plain Text
+db-recovery.txt
+query.py
+
+Sends:
+
+Plain Text
+Context
++
+Question
+
+to
+
+Plain Text
+Qwen
+Final Answer
+Plain Text
+Database Recovery Steps
+ 
+1 Backup database
+2 Restore backup
+3 Verify tables
+4 Start application
+Simple Kid Version
+Plain Text
+docs/ = Books 📚
+ 
+loader.py = Reader 👦
+ 
+embed.py = Translator 🔄
+ 
+ingest.py = Librarian 📖
+ 
+ChromaDB = Library 🏢
+ 
+search.py = Search Engine 🔍
+ 
+query.py = Teacher 👨‍🏫
+ 
+Qwen = Brain 🧠
+ 
+User = Student 🧒
+
+When the student asks a question:
+
+Plain Text
+Student
+↓
+Search Engine
+↓
+Library
+↓
+Find Book
+↓
+Teacher
+↓
+Brain
+↓
+Answer
+
+That is the complete purpose of every file inside the rag folder.
+
+
+
+
+
+
