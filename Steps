@@ -1,0 +1,2301 @@
+Project Title
+
+AI-POWERD-DEVOPS
+
+Enterprise AI Operations Platform using RAG, MCP Servers, LLMs, and Automated Incident Response
+
+Business Scenario
+
+A company has:
+
+Thousands of technical documents
+Runbooks
+Infrastructure guides
+Incident reports
+Security policies
+Application logs
+
+Engineers waste hours searching documentation.
+
+When production issues occur:
+
+Documentation is scattered
+Teams manually investigate
+Alerts are noisy
+Escalations are delayed
+
+Management wants an AI-powered platform that:
+
+Answers questions from enterprise documents
+Detects production issues
+Escalates incidents automatically
+Suggests fixes
+Creates tickets
+Improves operational efficiency
+Tracks success metrics
+How All Topics Fit
+Topic	Covered In ProjectSecure Path Forward	Security architecture
+Internal AI Infrastructure	Local AI deployment
+Securing AI Components	Model and API security
+AI Operations	Model monitoring
+Enterprise Success Metrics	KPI Dashboard
+Qwen AI Models	Primary LLM
+Documentation Chaos	Source problem statement
+Problem Escalates	Incident simulation
+Breakthrough Proposal	AI assistant solution
+Discovery & Transformation	Business outcome
+RAG Essentials	Knowledge retrieval
+MCP Servers & Essentials	Tool integrations
+LLM	Qwen model
+Technical Debt	Legacy documentation cleanup
+Building Specialists	Multi-agent design
+Automated Efficiency	Incident automation
+Cascade Failure	AI-driven response
+Production Infrastructure Crisis Management	Monitoring system
+Technology Stack
+Operating System
+
+Ubuntu 24.04
+
+AI
+Qwen 3
+Ollama
+Vector Database
+ChromaDB
+Framework
+LangChain
+MCP
+MCP Python SDK
+Monitoring
+Prometheus
+Grafana
+Automation
+Python
+FastAPI
+Database
+PostgreSQL
+Container
+Docker
+Orchestration
+Docker Compose
+Architecture
+Plain Text
+Users
+|
+V
+FastAPI Portal
+|
+-----------------------
+| |
+V V
+ 
+Qwen LLM MCP Server
+| |
+| |
+V V
+ 
+LangChain Monitoring Tools
+|
+V
+ 
+ChromaDB
+|
+V
+ 
+Enterprise Docs
+ 
+----------------------------------------
+ 
+Prometheus
+|
+V
+ 
+Incident Detector
+|
+V
+ 
+AI Specialist Agents
+|
+V
+ 
+Automated Response
+Phase 1
+Documentation Chaos
+
+Create sample folders
+
+Plain Text
+docs/
+ 
+linux/
+azure/
+security/
+network/
+runbooks/
+incidents/
+
+Create:
+
+100 documents
+PDF
+DOCX
+TXT
+
+Problem:
+
+Engineers cannot locate information quickly.
+
+Phase 2
+Internal AI Infrastructure
+
+Install
+
+Shell
+sudo apt update
+ 
+curl -fsSL https://ollama.com/install.sh | sh
+ 
+ollama run qwen3
+
+Deploy model locally.
+
+Topics Covered:
+
+Internal AI Infrastructure
+Qwen AI Models
+LLM
+Phase 3
+Build RAG Platform
+
+Install
+
+Shell
+pip install langchain
+pip install chromadb
+pip install sentence-transformers
+
+Flow:
+
+Plain Text
+Document
+|
+Chunk
+|
+Embedding
+|
+ChromaDB
+|
+User Question
+|
+Similarity Search
+|
+Qwen
+|
+Answer
+
+Topics Covered:
+
+RAG Essentials
+Documentation Chaos
+Phase 4
+MCP Server
+
+Create tools:
+
+Documentation Tool
+
+Search documents
+
+Ticket Tool
+
+Create incidents
+
+Monitoring Tool
+
+Read Prometheus metrics
+
+Shell Tool
+
+Execute approved commands
+
+Topics Covered:
+
+MCP Servers & Essentials
+Phase 5
+Secure AI Components
+
+Add:
+
+Authentication
+Plain Text
+JWT
+Role Based Access
+Plain Text
+Admin
+Engineer
+Viewer
+Prompt Filtering
+
+Reject dangerous prompts.
+
+Topics Covered:
+
+Secure Path Forward
+Securing AI Components
+Phase 6
+AI Specialists
+
+Create Multiple Agents
+
+Documentation Agent
+
+Answers questions
+
+Security Agent
+
+Checks vulnerabilities
+
+Incident Agent
+
+Handles outages
+
+Monitoring Agent
+
+Analyzes metrics
+
+Topics Covered:
+
+Building Specialists
+Phase 7
+Technical Debt Analyzer
+
+Scan documents.
+
+Identify:
+
+Duplicate runbooks
+Outdated procedures
+Missing ownership
+
+Generate report.
+
+Topics Covered:
+
+Technical Debt
+Phase 8
+Automated Efficiency
+
+User asks:
+
+Plain Text
+Database is slow
+
+System automatically:
+
+Retrieves documentation
+Reads metrics
+Identifies issue
+Suggests solution
+Creates ticket
+
+Topics Covered:
+
+Automated Efficiency
+Phase 9
+Problem Escalates
+
+Simulate production outage.
+
+Example:
+
+Plain Text
+CPU = 95%
+Memory = 92%
+Disk = 90%
+
+Prometheus generates alert.
+
+AI starts investigation.
+
+Topics Covered:
+
+Problem Escalates
+Phase 10
+Cascade Failure Simulation
+
+Simulate:
+
+Plain Text
+Database Failure
+ 
+|
+V
+ 
+Application Failure
+ 
+|
+V
+ 
+API Failure
+ 
+|
+V
+ 
+User Impact
+
+AI:
+
+Detects chain
+Traces root cause
+Recommends solution
+
+Topics Covered:
+
+Cascade Failure
+Phase 11
+Crisis Management
+
+AI generates:
+
+Incident Report
+Plain Text
+Start Time
+Impacted Service
+Root Cause
+Action Taken
+Resolution
+Postmortem
+Plain Text
+What happened
+Why happened
+Prevention plan
+
+Topics Covered:
+
+Production Infrastructure Crisis Management
+Phase 12
+Enterprise Dashboard
+
+Grafana panels:
+
+AI Metrics
+Queries/day
+Accuracy
+Operations Metrics
+Incidents detected
+Incidents solved
+Documentation Metrics
+Documents indexed
+Search success rate
+
+Topics Covered:
+
+Enterprise Success Metrics
+Final Project Deliverables
+Plain Text
+Enterprise-AI-Platform/
+ 
+├── FastAPI
+├── Ollama
+├── Qwen
+├── ChromaDB
+├── LangChain
+├── MCP Server
+├── Prometheus
+├── Grafana
+├── PostgreSQL
+├── Docker
+├── Multi Agents
+├── Automation Engine
+├── Incident Manager
+└── Dashboard
+Learning Outcomes
+
+After completing this project, you will gain hands-on experience with:
+
+Ubuntu administration
+Python development
+Ollama & Qwen
+RAG implementation
+Vector databases
+MCP servers
+LangChain
+AI Agents
+Prompt Security
+FastAPI
+Prometheus
+Grafana
+Incident Management
+Automated Remediation
+Enterprise AI Operations
+Crisis Management
+End-to-End Production AI Platform
+
+This project can easily be structured as a 10-15 day training lab where each day builds one phase and the final day integrates everything into a production-style Enterprise AI Operations Platform.
+
+show me all the steps one by one dont skip any steps
+
+Perfect. If this is a training project on Ubuntu, then we should build it exactly like a real enterprise implementation. Below is the complete roadmap with no major steps skipped.
+
+Project Name
+
+Enterprise AI Operations Platform Using Qwen + RAG + MCP + Prometheus + Grafana
+
+Phase 0 - Environment Preparation
+Step 1: Update Ubuntu
+Shell
+sudo apt update
+sudo apt upgrade -y
+
+Verify:
+
+Shell
+uname -a
+cat /etc/os-release
+Step 2: Install Basic Tools
+Shell
+sudo apt install -y \
+git \
+curl \
+wget \
+vim \
+zip \
+unzip \
+python3 \
+python3-pip \
+python3-venv \
+net-tools \
+jq
+
+Verify:
+
+Shell
+python3 --version
+pip3 --version
+git --version
+Step 3: Create Project Folder
+Shell
+mkdir enterprise-ai-platform
+cd enterprise-ai-platform
+
+Structure:
+
+Plain Text
+enterprise-ai-platform
+├── docs
+├── rag
+├── api
+├── monitoring
+├── agents
+├── mcp-server
+├── reports
+├── scripts
+└── database
+Phase 1 - Documentation Chaos
+Step 4: Create Knowledge Repository
+Shell
+mkdir -p docs/linux
+mkdir -p docs/security
+mkdir -p docs/azure
+mkdir -p docs/network
+mkdir -p docs/runbooks
+mkdir -p docs/incidents
+ 
+
+Verify:
+
+Shell
+tree docs
+Step 5: Add Sample Documents
+
+Create files:
+
+Shell
+touch docs/linux/linux-001.txt
+touch docs/security/security-001.txt
+touch docs/runbooks/db-recovery.txt
+touch docs/incidents/incident-001.txt
+
+Add sample data:
+
+Shell
+nano docs/runbooks/db-recovery.txt
+
+Example:
+
+Plain Text
+Database Recovery Procedure
+ 
+Step 1 Stop application
+Step 2 Verify backup
+Step 3 Restore database
+Step 4 Validate services
+
+Create at least:
+
+Plain Text
+50 Runbooks
+20 Security Docs
+20 Linux Docs
+10 Incident Reports
+Phase 2 - Python Environment
+Step 6: Create Virtual Environment
+Shell
+python3 -m venv venv
+
+Activate:
+
+Shell
+source venv/bin/activate
+
+Verify:
+
+Shell
+which python
+Step 7: Install Core Packages
+Shell
+pip install \
+langchain \
+langchain-community \
+chromadb \
+sentence-transformers \
+pypdf \
+python-docx \
+fastapi \
+uvicorn \
+streamlit \
+pandas
+
+Verify:
+
+Shell
+pip list
+Phase 3 - Install Ollama
+Step 8: Install Ollama
+Shell
+curl -fsSL https://ollama.com/install.sh | sh
+
+Verify:
+
+Shell
+ollama --version
+Step 9: Download Qwen
+Shell
+ollama pull qwen3
+
+Verify:
+
+Shell
+ollama list
+
+Run:
+
+Shell
+ollama run qwen3
+
+Test:
+
+Plain Text
+What is Linux?
+Phase 4 - Build RAG Foundation
+Step 10: Create RAG Folder
+Shell
+mkdir rag
+
+Inside:
+
+Plain Text
+rag
+├── loader.py
+├── embed.py
+├── ingest.py
+├── search.py
+└── query.py
+Step 11: Document Loader
+
+Purpose:
+
+Plain Text
+Read TXT
+Read PDF
+Read DOCX
+
+Flow:
+
+Plain Text
+Documents
+↓
+Loader
+↓
+Text Extraction
+Step 12: Chunking
+
+Split documents:
+
+Plain Text
+1000 Characters
+200 Overlap
+
+Pipeline:
+
+Plain Text
+Document
+↓
+Chunk
+↓
+Store
+Step 13: Generate Embeddings
+
+Use:
+
+Plain Text
+Sentence Transformers
+
+Example model:
+
+Plain Text
+all-MiniLM-L6-v2
+
+Output:
+
+Plain Text
+Vector Embeddings
+Step 14: Create ChromaDB
+
+Create storage:
+
+Shell
+mkdir chroma_db
+
+Store:
+
+Plain Text
+Chunk
+Vector
+Source file
+
+Verify:
+
+Plain Text
+Thousands of vectors stored
+Step 15: Search Documents
+
+Flow:
+
+Plain Text
+Question
+↓
+Embedding
+↓
+Vector Search
+↓
+Top Results
+
+Example:
+
+Plain Text
+How to recover a database?
+
+Retrieve:
+
+Plain Text
+db-recovery.txt
+Phase 5 - Connect Qwen
+Step 16: Retrieve Context
+
+User asks:
+
+Plain Text
+How do I recover database?
+
+System:
+
+Plain Text
+Search Chroma
+Retrieve Chunks
+Step 17: Send Context To Qwen
+
+Flow:
+
+Plain Text
+Question
++
+Context
+=
+Prompt
+
+Example:
+
+Plain Text
+Answer only from company documentation
+Step 18: Generate Final Response
+
+Output:
+
+Plain Text
+Step-by-step recovery process
+
+Congratulations:
+
+Plain Text
+RAG System Completed
+Phase 6 - FastAPI
+Step 19: Create API Folder
+Shell
+mkdir api
+
+Files:
+
+Plain Text
+main.py
+routes.py
+auth.py
+Step 20: Create API Endpoints
+
+Endpoints:
+
+Plain Text
+/question
+/search
+/metrics
+/incidents
+
+Verify:
+
+Shell
+uvicorn main:app --reload
+
+Open:
+
+Plain Text
+http://localhost:8000/docs
+Phase 7 - PostgreSQL
+Step 21: Install PostgreSQL
+Shell
+sudo apt install postgresql -y
+
+Start:
+
+Shell
+sudo systemctl start postgresql
+
+Verify:
+
+Shell
+sudo systemctl status postgresql
+Step 22: Create Database
+Shell
+sudo -u postgres psql
+
+Create:
+
+SQL
+CREATE DATABASE enterprise_ai;
+
+Tables:
+
+Plain Text
+users
+incidents
+queries
+audit_logs
+Phase 8 - MCP Server
+Step 23: Install MCP SDK
+Shell
+pip install mcp
+Step 24: Create MCP Server
+
+Directory:
+
+Plain Text
+mcp-server
+├── server.py
+├── tools.py
+
+Create tools:
+
+Plain Text
+Search Docs
+Create Ticket
+Read Metrics
+Run Approved Command
+Step 25: Register Tools
+
+Tool 1:
+
+Plain Text
+search_docs()
+
+Tool 2:
+
+Plain Text
+create_incident()
+
+Tool 3:
+
+Plain Text
+read_prometheus()
+
+Tool 4:
+
+Plain Text
+system_status()
+Phase 9 - Security
+Step 26: Authentication
+
+Install:
+
+Shell
+pip install pyjwt passlib bcrypt
+
+Create:
+
+Plain Text
+Login API
+JWT Token
+Step 27: Role Based Access
+
+Roles:
+
+Plain Text
+Admin
+Engineer
+Viewer
+
+Permission Matrix:
+
+Plain Text
+Admin = Everything
+Engineer = Operations
+Viewer = Read Only
+Step 28: Prompt Security
+
+Block:
+
+Plain Text
+Delete database
+Remove users
+Shutdown production
+
+Add validation layer.
+
+Phase 10 - Specialist Agents
+Step 29: Create Agents
+
+Folder:
+
+Plain Text
+agents
+├── doc_agent.py
+├── security_agent.py
+├── incident_agent.py
+├── monitoring_agent.py
+Step 30: Documentation Agent
+
+Responsibilities:
+
+Plain Text
+Document Search
+Knowledge Answers
+Step 31: Security Agent
+
+Responsibilities:
+
+Plain Text
+Security Analysis
+Compliance Checks
+Step 32: Incident Agent
+
+Responsibilities:
+
+Plain Text
+Incident Creation
+Escalation
+Step 33: Monitoring Agent
+
+Responsibilities:
+
+Plain Text
+Prometheus Analysis
+Alert Correlation
+Phase 11 - Prometheus
+Step 34: Install Docker
+Shell
+sudo apt install docker.io -y
+
+Start:
+
+Shell
+sudo systemctl enable docker
+sudo systemctl start docker
+Step 35: Run Prometheus
+Shell
+docker run -d \
+--name prometheus \
+-p 9090:9090 \
+prom/prometheus
+
+Open:
+
+Plain Text
+http://localhost:9090
+Step 36: Export Metrics
+
+Collect:
+
+Plain Text
+CPU
+Memory
+Disk
+Network
+Phase 12 - Grafana
+Step 37: Run Grafana
+Shell
+docker run -d \
+--name grafana \
+-p 3000:3000 \
+grafana/grafana
+
+Login:
+
+Plain Text
+admin/admin
+Step 38: Add Prometheus Source
+
+Add:
+
+Plain Text
+Prometheus URL
+
+Example:
+
+Plain Text
+http://prometheus:9090
+Step 39: Dashboard
+
+Panels:
+
+Plain Text
+CPU Usage
+Memory Usage
+Disk Usage
+Incident Count
+AI Queries
+Phase 13 - Technical Debt Detection
+Step 40: Scan Documents
+
+Check:
+
+Plain Text
+Duplicate Content
+Missing Owners
+Outdated Procedures
+Step 41: Generate Report
+
+Output:
+
+Plain Text
+Technical Debt Report
+
+Save:
+
+Plain Text
+reports/debt_report.pdf
+Phase 14 - Automated Efficiency
+Step 42: User Raises Issue
+
+Example:
+
+Plain Text
+Database response is slow
+Step 43: AI Workflow
+
+System:
+
+Plain Text
+Search Docs
+Retrieve Metrics
+Analyze Incident
+Create Recommendation
+Step 44: Auto Ticket
+
+Store:
+
+Plain Text
+Incident ID
+Timestamp
+Actions
+
+In PostgreSQL.
+
+Phase 15 - Problem Escalates
+Step 45: Simulate CPU Failure
+
+Generate load:
+
+Shell
+yes > /dev/null
+
+Observe:
+
+Plain Text
+CPU Spike
+Step 46: Detect Alert
+
+Prometheus:
+
+Plain Text
+CPU > 90%
+
+Trigger alert.
+
+Step 47: Agent Investigation
+
+Monitoring Agent:
+
+Plain Text
+Reads metrics
+Checks logs
+Suggests remediation
+Phase 16 - Cascade Failure
+Step 48: Stop PostgreSQL
+Shell
+sudo systemctl stop postgresql
+Step 49: Observe Impact
+Plain Text
+Database Down
+API Errors
+User Impact
+Step 50: AI Root Cause Analysis
+
+Generate:
+
+Plain Text
+Root Cause
+Service Dependency
+Business Impact
+Phase 17 - Crisis Management
+Step 51: Generate Incident Report
+
+Create:
+
+Plain Text
+Start Time
+End Time
+Affected System
+Impact
+Resolution
+Step 52: Postmortem
+
+Include:
+
+Plain Text
+Timeline
+Root Cause
+Lessons Learned
+Action Items
+Phase 18 - Enterprise Success Metrics
+Step 53: Measure KPIs
+
+Track:
+
+Plain Text
+Mean Time To Detect
+Mean Time To Recover
+Incident Reduction
+Search Accuracy
+Agent Accuracy
+Step 54: Dashboard Reporting
+
+Display:
+
+Plain Text
+Operational Efficiency
+Incident Metrics
+AI Metrics
+Business Metrics
+Final Validation
+Step 55: End-to-End Testing
+
+Test Scenario:
+
+Plain Text
+User asks question
+↓
+RAG retrieves answer
+↓
+Qwen responds
+↓
+Prometheus detects issue
+↓
+Agent investigates
+↓
+Ticket created
+↓
+Grafana dashboard updated
+↓
+Incident report generated
+Final Folder Structure
+Plain Text
+enterprise-ai-platform
+├── docs
+├── rag
+├── api
+├── agents
+├── chroma_db
+├── mcp-server
+├── monitoring
+├── database
+├── reports
+├── Grafana
+├── Prometheus
+├── PostgreSQL
+├── Ollama
+└── Qwen
+
+This gives you a complete enterprise-grade project with all 17 topics integrated into a single workflow on Ubuntu, from installation through AI operations, security, RAG, MCP, monitoring, automation, incident management, and executive metrics.
+
+explain all project veru basic way assume i am kid
+
+Sure 😊. Let's forget all the technical words and imagine you are a kid building a smart robot for your school.
+
+What Are We Building?
+
+Imagine your school has:
+
+10,000 books 📚
+Teachers 👨‍🏫
+Students 👦👧
+Security guards 👮
+A principal 👨‍💼
+
+Whenever someone asks:
+
+"How do I do my homework?"
+
+The answer is hidden somewhere inside thousands of books.
+
+Finding the answer takes a lot of time.
+
+So we build a Smart AI Robot that:
+
+✅ Reads all books
+
+✅ Remembers everything
+
+✅ Answers questions
+
+✅ Watches the school for problems
+
+✅ Calls the teacher if something goes wrong
+
+✅ Creates reports for the principal
+
+Your project is exactly this, but instead of a school, it is a company.
+
+Step 1: Documentation Chaos
+Real World
+
+Company has:
+
+Linux documents
+Security documents
+Incident reports
+Runbooks
+
+Thousands of files.
+
+Nobody knows where things are.
+
+Kid Version
+
+Imagine your room.
+
+You have:
+
+Toys
+Books
+Clothes
+Game CDs
+
+Everything is mixed together.
+
+Mom asks:
+
+"Where is your red car?"
+
+You spend 30 minutes searching 😅
+
+This is called:
+
+Documentation Chaos
+Step 2: Organize the Room
+
+We create folders.
+
+Plain Text
+Books
+Toys
+Games
+School
+
+Now things are organized.
+
+Project
+
+We create folders:
+
+Plain Text
+linux
+security
+runbooks
+incidents
+
+Now documents are organized.
+
+Step 3: Give the Robot a Brain
+
+Robot needs a brain.
+
+We install:
+
+Plain Text
+Qwen
+
+Qwen = AI Brain
+
+Kid Version
+
+Think:
+
+Plain Text
+Robot Body
++
+Robot Brain
+
+Without brain:
+
+Plain Text
+Robot = Dumb
+
+With brain:
+
+Plain Text
+Robot = Smart
+Step 4: Teach the Robot
+
+Robot knows nothing.
+
+We give it documents.
+
+Example:
+
+Plain Text
+How to recover database
+ 
+Step 1 Backup
+Step 2 Restore
+Step 3 Verify
+
+Robot reads document.
+
+Now robot learned something.
+
+Like:
+
+Plain Text
+Teacher teaches student
+Step 5: RAG
+
+This is most important.
+
+Don't worry about big word.
+
+RAG means:
+
+Open Book Exam
+
+Imagine teacher asks:
+
+Plain Text
+What is Linux?
+
+You don't remember.
+
+So:
+
+Plain Text
+Open book
+Find answer
+Reply
+
+That is RAG.
+
+Without RAG
+
+Plain Text
+Question
+↓
+AI guesses
+
+Because memory may be wrong.
+
+With RAG
+
+Plain Text
+Question
+↓
+Find document
+↓
+Read document
+↓
+Answer
+
+Much better.
+
+Step 6: Vector Database
+
+Big scary name 😄
+
+Actually very simple.
+
+Imagine:
+
+You have:
+
+Plain Text
+10000 books
+
+Finding book manually:
+
+Plain Text
+Very slow
+
+So library creates index.
+
+Example:
+
+Plain Text
+Animals → Shelf 1
+ 
+Cars → Shelf 2
+ 
+Science → Shelf 3
+
+Now search is fast.
+
+Vector Database = Smart Library Index
+
+Step 7: User Asks Question
+
+User:
+
+Plain Text
+How to recover database?
+
+System:
+
+Plain Text
+Search documents
+Find answer
+Send answer
+
+Like:
+
+Plain Text
+Friend asks
+You open notes
+You answer
+Step 8: FastAPI
+
+FastAPI is the door.
+
+House Example
+
+House has:
+
+Plain Text
+Door
+
+People enter through door.
+
+Project has:
+
+Plain Text
+FastAPI
+
+Users interact through FastAPI.
+
+Step 9: Database
+
+Database = Notebook
+
+Imagine:
+
+Teacher keeps attendance.
+
+Plain Text
+Roll Number
+Name
+Present
+
+Stored safely.
+
+Project stores:
+
+Plain Text
+Users
+Incidents
+Queries
+Reports
+Step 10: MCP Server
+
+Another scary word 😄
+
+Think of:
+
+Robot Tool Bag
+
+Robot has:
+
+Plain Text
+Hammer
+Screwdriver
+Wrench
+
+When needed:
+
+Robot picks tool.
+
+MCP is exactly that.
+
+Tools:
+
+Plain Text
+Search Docs
+Read Metrics
+Create Ticket
+Check Server
+
+AI picks correct tool.
+
+Step 11: Security
+
+Imagine school gate.
+
+Anybody entering?
+
+Plain Text
+No
+
+Guard checks ID card.
+
+Project does same.
+
+Users:
+
+Plain Text
+Admin
+Engineer
+Viewer
+
+Admin can do everything.
+
+Viewer can only read.
+
+Like school permissions.
+
+Step 12: Specialist Agents
+
+Imagine hospital.
+
+You have:
+
+Plain Text
+Heart Doctor
+Eye Doctor
+Skin Doctor
+
+Not one doctor for everything.
+
+Project creates:
+
+Documentation Agent
+
+Answers document questions.
+
+Security Agent
+
+Looks for security problems.
+
+Incident Agent
+
+Handles outages.
+
+Monitoring Agent
+
+Watches servers.
+
+Each agent is a specialist.
+
+Step 13: Monitoring
+
+Imagine:
+
+Mom is watching milk boil.
+
+If milk rises:
+
+Plain Text
+Turn off gas
+
+Otherwise:
+
+Plain Text
+Milk spills
+
+Monitoring does same.
+
+Watching:
+
+Plain Text
+CPU
+Memory
+Disk
+
+24/7
+
+Step 14: Prometheus
+
+Prometheus is a watcher.
+
+Like:
+
+Plain Text
+Security Guard
+
+Checking everything.
+
+Examples:
+
+Plain Text
+CPU = 30%
+ 
+Memory = 40%
+ 
+Disk = 50%
+
+Always watching.
+
+Step 15: Grafana
+
+Prometheus collects numbers.
+
+Grafana shows pictures.
+
+Example:
+
+Plain Text
+Marks:
+90
+80
+70
+
+Hard to understand.
+
+Grafana:
+
+Plain Text
+Graph 📈
+
+Easy to understand.
+
+Step 16: Problem Escalates
+
+Server becomes sick 😷
+
+Example:
+
+Plain Text
+CPU = 95%
+
+Prometheus:
+
+Plain Text
+Warning!
+Warning!
+
+AI notices problem.
+
+Step 17: Automated Efficiency
+
+Normally:
+
+Engineer checks.
+
+Plain Text
+1 hour
+
+AI does automatically:
+
+Plain Text
+Check documents
+Check metrics
+Find reason
+Suggest solution
+
+In seconds.
+
+Step 18: Cascade Failure
+
+Domino Effect.
+
+Imagine:
+
+Plain Text
+1 Domino Falls
+
+Then:
+
+Plain Text
+2 Falls
+3 Falls
+4 Falls
+5 Falls
+
+In IT:
+
+Plain Text
+Database Down
+↓
+Application Down
+↓
+Website Down
+↓
+Users Angry
+
+This is Cascade Failure.
+
+Step 19: Crisis Management
+
+Big production outage.
+
+Company asks:
+
+Plain Text
+What happened?
+
+AI creates report.
+
+Example:
+
+Plain Text
+Time of issue
+Root cause
+Impact
+Fix
+
+Like a detective report 🔍
+
+Step 20: Enterprise Success Metrics
+
+Principal wants results.
+
+Questions:
+
+Plain Text
+How many issues fixed?
+How many questions answered?
+How much time saved?
+
+Dashboard shows everything.
+
+Final Picture
+Plain Text
+Employee Asks Question
+↓
+FastAPI
+↓
+RAG
+↓
+ChromaDB
+↓
+Qwen
+↓
+Answer
+ 
+-------------------------
+ 
+Prometheus Watches
+↓
+Problem Found
+↓
+AI Agents
+↓
+Create Ticket
+↓
+Suggest Fix
+↓
+Grafana Shows Dashboard
+In One Line
+
+This entire project is simply:
+
+"Building a smart company assistant that reads all company documents, answers questions, watches servers, detects problems, and helps engineers fix issues automatically." 🚀
+
+now show me ste steps how to excute one by one i am doing alll handson ubuntu vm
+
+Great 👍. Since you are doing this on an Ubuntu VM, don't try to build everything at once.
+
+Think like building a house:
+
+Plain Text
+Day 1 = Build foundation
+Day 2 = Build walls
+Day 3 = Add doors
+Day 4 = Add electricity
+Day 5 = Add security
+
+We will do the same.
+
+Stage 1: Prepare Ubuntu VM
+Step 1: Login to Ubuntu
+
+Verify OS:
+
+Shell
+cat /etc/os-release
+
+Output should show Ubuntu.
+
+Step 2: Update System
+Shell
+sudo apt update
+sudo apt upgrade -y
+
+Wait until it completes.
+
+Step 3: Install Essential Packages
+Shell
+sudo apt install -y git curl wget unzip zip tree net-tools vim python3 python3-pip python3-venv
+
+Verify:
+
+Shell
+git --version
+python3 --version
+pip3 --version
+Step 4: Create Project Folder
+Shell
+mkdir ~/enterprise-ai-platform
+cd ~/enterprise-ai-platform
+
+Verify:
+
+Shell
+pwd
+
+Expected:
+
+Plain Text
+/home/<user>/enterprise-ai-platform
+Stage 2: Create Documentation Repository
+
+This is the "company knowledge".
+
+Step 5: Create Folder Structure
+Shell
+mkdir -p docs/linux
+mkdir -p docs/security
+mkdir -p docs/network
+mkdir -p docs/runbooks
+mkdir -p docs/incidents
+
+Check:
+
+Shell
+tree docs
+
+Expected:
+
+Plain Text
+docs
+├── incidents
+├── linux
+├── network
+├── runbooks
+└── security
+Step 6: Create First Document
+Shell
+nano docs/runbooks/db-recovery.txt
+
+Paste:
+
+Plain Text
+Database Recovery Runbook
+ 
+Step 1 Verify backup
+Step 2 Stop application
+Step 3 Restore database
+Step 4 Start application
+Step 5 Verify service
+
+Save:
+
+Plain Text
+CTRL + O
+ENTER
+CTRL + X
+
+Verify:
+
+Shell
+cat docs/runbooks/db-recovery.txt
+Step 7: Create More Documents
+
+Example:
+
+Shell
+nano docs/linux/linux-basic.txt
+Plain Text
+Linux Commands
+ 
+pwd = show current directory
+ls = list files
+cd = change directory
+Stage 3: Create Python Environment
+Step 8: Create Virtual Environment
+Shell
+python3 -m venv venv
+
+Activate:
+
+Shell
+source venv/bin/activate
+
+Prompt will change:
+
+Plain Text
+(venv)
+Step 9: Upgrade Pip
+Shell
+pip install --upgrade pip
+
+Verify:
+
+Shell
+pip --version
+Stage 4: Install AI Packages
+Step 10: Install Core Libraries
+Shell
+pip install langchain
+pip install langchain-community
+pip install chromadb
+pip install sentence-transformers
+pip install pypdf
+pip install python-docx
+
+This may take several minutes.
+
+Step 11: Verify Installation
+Shell
+pip list
+
+Verify these exist:
+
+Plain Text
+langchain
+chromadb
+sentence-transformers
+Stage 5: Install Ollama
+Step 12: Install Ollama
+Shell
+curl -fsSL https://ollama.com/install.sh | sh
+
+Verify:
+
+Shell
+ollama --version
+Step 13: Download Qwen Model
+
+Start with a smaller model:
+
+Shell
+ollama pull qwen2.5:3b
+
+Check:
+
+Shell
+ollama list
+
+Expected:
+
+Plain Text
+qwen2.5:3b
+Step 14: Test AI
+
+Run:
+
+Shell
+ollama run qwen2.5:3b
+
+Ask:
+
+Plain Text
+What is Linux?
+
+If AI answers, your brain is installed ✅
+
+Stage 6: Create First Python Program
+Step 15: Create Project Folder
+Shell
+mkdir rag
+cd rag
+Step 16: Create Test File
+Shell
+nano test_qwen.py
+
+Paste:
+
+Python
+print("Enterprise AI Project Started")
+
+Run:
+
+Shell
+python test_qwen.py
+
+Output:
+
+Plain Text
+Enterprise AI Project Started
+Stage 7: Create Document Reader
+Step 17: Create Script
+Shell
+nano read_docs.py
+
+Paste:
+
+Python
+import os
+ 
+folder = "../docs/runbooks"
+ 
+for file in os.listdir(folder):
+path = os.path.join(folder, file)
+ 
+with open(path, "r") as f:
+print(f.read())
+
+Run:
+
+Shell
+python read_docs.py
+
+Expected:
+
+Plain Text
+Database Recovery Runbook
+Step 1 Verify backup
+...
+
+Now Python can read documents.
+
+Stage 8: Create Search Feature
+Step 18
+
+Create:
+
+Shell
+nano search.py
+
+Paste:
+
+Python
+question = input("Enter search text:")
+ 
+with open("../docs/runbooks/db-recovery.txt") as f:
+ 
+data = f.read()
+ 
+if question.lower() in data.lower():
+print("Found")
+else:
+print("Not Found")
+
+Run:
+
+Shell
+python search.py
+
+Test:
+
+Plain Text
+backup
+
+Output:
+
+Plain Text
+Found
+
+Congratulations 🎉
+
+You built your first search engine.
+
+Stage 9: Install ChromaDB
+Step 19
+
+Go to project root:
+
+Shell
+cd ~/enterprise-ai-platform
+
+Install:
+
+Shell
+pip install chromadb
+
+Verify:
+
+Shell
+python
+Python
+import chromadb
+
+No errors means success.
+
+Stage 10: Create Vector Database
+Step 20
+
+Create folder:
+
+Shell
+mkdir chroma_db
+
+This becomes your AI memory.
+
+Think:
+
+Plain Text
+Bookshelf
+
+for all documents.
+
+Stage 11: Create API
+Step 21
+
+Install:
+
+Shell
+pip install fastapi uvicorn
+Step 22
+
+Create folder:
+
+Shell
+mkdir api
+cd api
+
+Create file:
+
+Shell
+nano main.py
+
+Paste:
+
+Python
+from fastapi import FastAPI
+ 
+app = FastAPI()
+ 
+@app.get("/")
+def home():
+return {"message":"Enterprise AI Running"}
+Step 23
+
+Start API:
+
+Shell
+uvicorn main:app --reload
+
+Browser:
+
+Plain Text
+http://SERVER_IP:8000
+
+Expected:
+
+JSON
+{
+"message":"Enterprise AI Running"
+}
+Stage 12: Install Docker
+Step 24
+Shell
+sudo apt install docker.io -y
+
+Verify:
+
+Shell
+docker --version
+Step 25
+
+Start Docker:
+
+Shell
+sudo systemctl enable docker
+sudo systemctl start docker
+
+Check:
+
+Shell
+sudo systemctl status docker
+
+Must show:
+
+Plain Text
+active (running)
+Stage 13: Install Prometheus
+Step 26
+Shell
+docker pull prom/prometheus
+Step 27
+
+Run:
+
+Shell
+docker run -d \
+--name prometheus \
+-p 9090:9090 \
+prom/prometheus
+
+Verify:
+
+Shell
+docker ps
+Step 28
+
+Browser:
+
+Plain Text
+http://SERVER_IP:9090
+
+Prometheus page should open.
+
+Stage 14: Install Grafana
+Step 29
+Shell
+docker pull grafana/grafana
+Step 30
+Shell
+docker run -d \
+--name grafana \
+-p 3000:3000 \
+grafana/grafana
+
+Verify:
+
+Shell
+docker ps
+Step 31
+
+Browser:
+
+Plain Text
+http://SERVER_IP:3000
+
+Login:
+
+Plain Text
+admin
+admin
+Stage 15: Install PostgreSQL
+Step 32
+Shell
+sudo apt install postgresql -y
+Step 33
+
+Start:
+
+Shell
+sudo systemctl start postgresql
+
+Verify:
+
+Shell
+sudo systemctl status postgresql
+Step 34
+
+Connect:
+
+Shell
+sudo -u postgres psql
+
+Create database:
+
+SQL
+CREATE DATABASE enterprise_ai;
+
+Exit:
+
+SQL
+\q
+Stage 16: Final Integration
+Step 35
+
+Final flow:
+
+Plain Text
+User
+↓
+FastAPI
+↓
+Qwen Model
+↓
+Search Documents
+↓
+ChromaDB
+↓
+Answer Returned
+Step 36
+
+Monitoring flow:
+
+Plain Text
+Prometheus
+↓
+Detect Issue
+↓
+AI Agent
+↓
+Create Incident
+↓
+Store In PostgreSQL
+↓
+Grafana Dashboard
+First Milestone Checkpoint
+
+Before moving to RAG, MCP, Agents, and Automation, make sure these are working:
+
+Shell
+✅ Ubuntu updated
+✅ Python installed
+✅ Virtual environment created
+✅ Documentation folders created
+✅ Qwen running in Ollama
+✅ FastAPI running
+✅ Docker running
+✅ Prometheus running
+✅ Grafana running
+✅ PostgreSQL running
+
+Once you complete Step 1 to Step 34, you will have the full foundation ready. After that, the next hands-on section is the actual RAG implementation (document ingestion, embeddings, ChromaDB indexing, and question answering with Qwen).
+
+Start with the RAG implementationHelp me verify each installationCreate a simple project checklist
+FilesFiles
+
+
+
+
+Message Copilot
+AI-gene
