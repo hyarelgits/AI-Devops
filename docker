@@ -1,2 +1,78 @@
 docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' grafana
 psql -h localhost -U postgres -d enterprise_ai
+
+
+===================
+
+Step 2: Test Password Authentication
+
+Run:
+
+Shell
+psql -h localhost -U postgres -d enterprise_ai
+
+It will ask:
+
+Plain Text
+Password:
+
+Enter:
+
+Plain Text
+postgres123
+
+If you get:
+
+Plain Text
+enterprise_ai=>
+
+the password is working.
+
+Step 3: Configure Grafana
+
+Use:
+
+Plain Text
+Host URL: 192.168.11.150:5432
+Database: enterprise_ai
+User: postgres
+Password: postgres123
+SSL Mode: disable
+
+Click:
+
+Plain Text
+Save & Test
+Step 4: If It Still Fails
+
+Check PostgreSQL authentication file:
+
+Shell
+sudo nano /etc/postgresql/14/main/pg_hba.conf
+
+Look for lines like:
+
+Plain Text
+host all all 0.0.0.0/0 md5
+
+or
+
+Plain Text
+host all all 0.0.0.0/0 scram-sha-256
+
+Then restart:
+
+Shell
+sudo systemctl restart postgresql
+Step 5: Verify the postgres User Password
+
+Run:
+
+Shell
+psql -h 192.168.11.150 -U postgres -d enterprise_ai
+
+If login succeeds with the same password you're entering in Grafana, Grafana will connect successfully too.
+
+The issue is now only the password, not networking.
+
+
