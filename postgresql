@@ -42,6 +42,76 @@ Plain Text
  
 If it still fails
 
+
+
+
+===========================================
+
+
+
+The screenshot shows you typed the directory name incorrectly:
+
+You ran:
+
+Shell
+sudo chmod 775 /run/postgresq
+
+But it should be:
+
+Shell
+/run/postgresql
+
+Let's first check whether the directory exists:
+
+Shell
+ls -ld /run/postgresql
+
+If you get:
+
+Plain Text
+No such file or directory
+
+then create it:
+
+Shell
+mkdir -p /run/postgresql
+chown postgres:postgres /run/postgresql
+chmod 775 /run/postgresql
+
+Now verify:
+
+Shell
+ls -ld /run/postgresql
+
+Then try starting PostgreSQL again:
+
+Shell
+pg_ctlcluster 14 main start
+
+Check status:
+
+Shell
+pg_lsclusters
+
+If it still shows down, run:
+
+Shell
+tail -50 /var/log/postgresql/postgresql-14-main.log
+
+and paste the output.
+
+Execute these commands exactly in order:
+Shell
+mkdir -p /run/postgresql
+chown postgres:postgres /run/postgresql
+chmod 775 /run/postgresql
+pg_ctlcluster 14 main start
+pg_lsclusters
+
+Show me the output of pg_lsclusters after running them.
+
+FilesFiles
+
 Run:
 
 Shell
