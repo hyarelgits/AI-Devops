@@ -117,4 +117,49 @@ Run:
 Shell
 tail -100 /var/log/postgresql/postgresql-14-main.log
 
+
+========================
+
+
+The service is still failing to start. We need the real PostgreSQL error, not the systemd summary.
+
+Run this command:
+
+Shell
+tail -100 /var/log/postgresql/postgresql-14-main.log
+
+If that file doesn't exist:
+
+Shell
+ls -l /var/log/postgresql
+
+Also run:
+
+Shell
+systemctl status postgresql@14-main.service -l --no-pager
+
+and
+
+Shell
+journalctl -xeu postgresql@14-main.service --no-pager | tail -50
+Quick check
+
+Run:
+
+Shell
+ls -ld /var/lib/postgresql/14/main
+ls -l /var/lib/postgresql/14/main/postgresql.conf
+
+PostgreSQL is failing before creating its PID file, so the actual error is likely in the PostgreSQL log.
+
+Please paste the output of:
+
+Shell
+tail -100 /var/log/postgresql/postgresql-14-main.log
+
+That should reveal the exact cause (missing config file, permission issue, port conflict, corrupted cluster, etc.).
+
+FilesFiles
+
+
 and paste the full output here. That log will show the exact root cause (permissions, missing file, corrupted config, or port conflict), and I'll give you the precise fix.
