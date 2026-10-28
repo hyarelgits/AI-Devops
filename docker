@@ -1,1 +1,2 @@
 docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' grafana
+psql -h localhost -U postgres -d enterprise_ai
