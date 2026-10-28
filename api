@@ -1,0 +1,212 @@
+From your image, the step is:
+
+Shell
+nano ~/enterprise-ai-platform/api/main.py
+What this command does
+nano
+
+nano is a simple text editor in Linux.
+
+It allows you to:
+
+Create a new file
+Open an existing file
+Edit file contents
+~/enterprise-ai-platform/api/main.py
+~ = Home directory of the current user
+enterprise-ai-platform = Project folder
+api = Subfolder
+main.py = Python file
+
+So the command means:
+
+Open the file main.py inside the api folder using the Nano editor. If the file does not exist, create it.
+
+Execute
+Shell
+nano ~/enterprise-ai-platform/api/main.py
+ 
+
+After pressing Enter, Nano editor opens.
+
+Add Python Code
+
+For example:
+------------------------
+main.py 
+
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def home():
+    return {"message": "Enterprise AI Platform Running"}
+
+
+
+
+
+
+------------------------
+
+
+Save the File
+
+Press:
+
+Plain Text
+Ctrl + O
+
+Then press:
+
+Plain Text
+Enter
+ 
+Exit Nano
+
+Press:
+
+Plain Text
+Ctrl + X
+Verify the File
+Shell
+cat ~/enterprise-ai-platform/api/main.py
+
+This displays the contents of the file.
+
+Check File Exists
+Shell
+ls -l ~/enterprise-ai-platform/api/
+ 
+
+Expected output:
+
+Plain Text
+main.py
+Next Step (Run API)
+
+Usually after creating main.py, you start the FastAPI server:
+
+Shell
+cd ~/enterprise-ai-platform/api
+uvicorn main:app --host 0.0.0.0 --port 8000
+
+
+------------------
+
+
+Step 25: Open in Browser
+
+Open:
+
+Plain Text
+http://localhost:8000
+
+Expected:
+
+JSON
+{"message":"Enterprise AI Platform Running"}
+
+
+
+---------------------------
+
+
+
+Step 23: Install PostgreSQL
+Update packages
+
+sudo apt update
+Install PostgreSQL
+sudo apt install postgresql postgresql-contrib -y
+
+
+Verify installation
+Shell
+
+
+psql --version
+
+Expected output:
+
+
+psql (PostgreSQL) 14.x
+
+----------
+ 
+Check cluster status
+
+pg_lsclusters
+
+Expected:
+
+Plain Text
+Ver Cluster Port Status Owner
+14 main 5432 online postgres
+Enter PostgreSQL
+Shell
+
+-----------------
+sudo -u postgres psql
+
+Expected:
+
+SQL
+postgres=#
+
+Create Database
+
+CREATE DATABASE enterprise_ai;
+
+Verify Database
+
+SQL
+
+
+\l
+
+Expected output contains:
+
+Plain Text
+enterprise_ai
+ 
+Connect Database
+SQL
+\c enterprise_ai
+
+Expected:
+
+Plain Text
+You are now connected to database "enterprise_ai"
+Exit PostgreSQL
+SQL
+\q
+Files/Components After Step 23
+Plain Text
+enterprise-ai-platform/
+└── api/
+└── main.py
+ 
+PostgreSQL Server
+└── Database: enterprise_ai
+Purpose of PostgreSQL in the Project
+
+PostgreSQL will store:
+
+Document metadata
+User information
+Chat history
+RAG indexing information
+Application configuration
+
+Send the screenshot of Step 24 and I will explain it in the same format:
+
+Command
+Purpose
+Expected output
+Files created
+Verification steps
+Common errors and fixes.
+
