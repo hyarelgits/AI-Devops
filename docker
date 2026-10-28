@@ -75,4 +75,70 @@ If login succeeds with the same password you're entering in Grafana, Grafana wil
 
 The issue is now only the password, not networking.
 
+================
+
+
+If login fails
+
+Reset the password:
+
+Shell
+sudo -u postgres psql
+
+Then:
+
+SQL
+ALTER USER postgres WITH PASSWORD 'postgres123';
+
+Verify:
+
+SQL
+\du
+
+Exit:
+
+SQL
+\q
+
+Restart PostgreSQL:
+
+Shell
+sudo systemctl restart postgresql
+
+Now test again:
+
+Shell
+psql -h 192.168.11.150 -U postgres -d enterprise_ai
+
+Password:
+
+Plain Text
+postgres123
+Also Check Authentication Method
+
+Run:
+
+Shell
+grep -v '^#' /etc/postgresql/14/main/pg_hba.conf
+
+Look for a line similar to:
+
+Plain Text
+host all all 0.0.0.0/0 scram-sha-256
+
+or
+
+Plain Text
+host all all 0.0.0.0/0 md5
+
+Send the output of these two commands:
+
+Shell
+psql -h 192.168.11.150 -U postgres -d enterprise_ai
+
+and
+
+Shell
+grep -v '^#' /etc/postgresql/14/main/pg_hba.conf
+
 
