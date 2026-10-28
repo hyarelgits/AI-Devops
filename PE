@@ -1,0 +1,352 @@
+Enterprise AI Project Execution Steps
+
+Step 1: Create project folder
+
+Shell
+mkdir ~/enterprise-ai-platform
+cd ~/enterprise-ai-platform
+
+Step 2: Create project directories
+
+Shell
+mkdir -p docs/linux
+mkdir -p docs/security
+mkdir -p docs/network
+mkdir -p docs/runbooks
+mkdir -p docs/incidents
+ 
+mkdir rag
+mkdir api
+mkdir agents
+mkdir chroma_db
+mkdir reports
+
+Step 3: Create Linux document
+
+Shell
+nano docs/linux/linux-basic.txt
+
+Add:
+
+Plain Text
+Linux Commands
+pwd show current directory
+ls list files
+cd change directory
+
+Step 4: Create database recovery document
+
+Shell
+nano docs/runbooks/db-recovery.txt
+
+Add:
+
+Plain Text
+Database Recovery
+Step 1 Take Backup
+Step 2 Restore Database
+Step 3 Verify Tables
+Step 4 Start Application
+
+Step 5: Create Python virtual environment
+
+Shell
+python3 -m venv venv
+
+Step 6: Activate virtual environment
+
+Shell
+source venv/bin/activate
+ 
+
+Step 7: Upgrade pip
+
+Shell
+pip install --upgrade pip
+
+Step 8: Install packages
+
+Shell
+pip install chromadb
+pip install sentence-transformers
+pip install fastapi
+pip install uvicorn
+pip install pandas
+pip install pypdf
+pip install python-docx
+
+Step 9: Install Ollama
+
+Shell
+curl -fsSL https://ollama.com/install.sh | sh
+
+Step 10: Download Qwen model
+
+Shell
+ollama pull qwen2.5:3b
+
+Step 11: Create ingest.py
+
+Shell
+nano rag/ingest.py
+
+Add:
+
+Python
+import chromadb
+ 
+client = chromadb.PersistentClient(path="../chroma_db")
+ 
+collection = client.get_or_create_collection("enterprise_docs")
+ 
+collection.add(
+ids=["1"],
+documents=["Database Recovery Step 1 Take Backup Step 2 Restore Database"]
+)
+ 
+print("Stored Successfully")
+ 
+
+Step 12: Run ingest
+
+Shell
+cd rag
+python3 ingest.py
+
+Step 13: Create search.py
+
+Shell
+nano search.py
+
+Add:
+
+Python
+import chromadb
+ 
+client = chromadb.PersistentClient(path="../chroma_db")
+ 
+collection = client.get_collection("enterprise_docs")
+ 
+result = collection.query(
+query_texts=["How to recover database"],
+n_results=1
+)
+ 
+print(result["documents"])
+
+Step 14: Run search
+
+Shell
+python3 search.py
+
+Step 15: Create query.py
+
+Shell
+nano query.py
+
+Add:
+
+Python
+import chromadb
+import subprocess
+ 
+question = input("Ask Question: ")
+ 
+client = chromadb.PersistentClient(path="../chroma_db")
+ 
+collection = client.get_collection("enterprise_docs")
+ 
+result = collection.query(
+query_texts=[question],
+n_results=1
+)
+ 
+context = result["documents"][0][0]
+ 
+prompt = f"""
+Context:
+{context}
+ 
+Question:
+{question}
+"""
+ 
+subprocess.run(
+[
+"ollama",
+"run",
+"qwen2.5:3b",
+prompt
+]
+)
+
+Step 16: Start Ollama
+
+Open Terminal 1
+
+Shell
+ollama serve
+
+Step 17: Run project
+
+Open Terminal 2
+
+Shell
+cd ~/enterprise-ai-platform/rag
+source ../venv/bin/activate
+python3 query.py
+
+Step 18: Ask question
+
+Plain Text
+How do I recover database?
+
+Step 19: Verify answer appears
+
+Plain Text
+Take Backup
+Restore Database
+Verify Tables
+Start Application
+
+Step 20: Create API file
+
+Shell
+nano ~/enterprise-ai-platform/api/main.py
+
+Add:
+
+Python
+from fastapi import FastAPI
+ 
+app = FastAPI()
+ 
+@app.get("/")
+def home():
+return {"status":"running"}
+
+Step 21: Start API
+
+Open Terminal 3
+
+Shell
+cd ~/enterprise-ai-platform
+source venv/bin/activate
+uvicorn api.main:app --reload
+
+Step 22: Open browser
+
+Plain Text
+http://SERVER-IP:8000/docs
+
+Step 23: Install PostgreSQL
+
+Shell
+sudo apt install postgresql -y
+sudo systemctl start postgresql
+
+Step 24: Create database
+
+Shell
+sudo -u postgres psql
+SQL
+CREATE DATABASE enterprise_ai;
+SQL
+\q
+
+Step 25: Install Docker
+
+Shell
+sudo apt install docker.io -y
+sudo systemctl enable docker
+sudo systemctl start docker
+
+Step 26: Start Prometheus
+
+Shell
+docker run -d --name prometheus -p 9090:9090 prom/prometheus
+
+Step 27: Open Prometheus
+
+Plain Text
+http://SERVER-IP:9090
+
+Step 28: Start Grafana
+
+Shell
+docker run -d --name grafana -p 3000:3000 grafana/grafana
+
+Step 29: Open Grafana
+
+Plain Text
+http://SERVER-IP:3000
+
+Login:
+
+Plain Text
+admin
+admin
+
+Step 30: Create Agent Files
+
+Shell
+touch agents/doc_agent.py
+touch agents/security_agent.py
+touch agents/incident_agent.py
+touch agents/monitor_agent.py
+Final Startup Commands
+
+Terminal 1
+
+Shell
+ollama serve
+
+Terminal 2
+
+Shell
+cd ~/enterprise-ai-platform
+source venv/bin/activate
+uvicorn api.main:app --reload
+
+Terminal 3
+
+Shell
+docker start prometheus
+
+Terminal 4
+
+Shell
+docker start grafana
+
+Terminal 5
+
+Shell
+cd ~/enterprise-ai-platform/rag
+source ../venv/bin/activate
+python3 query.py
+Final Working Flow
+Plain Text
+Question
+↓
+search.py
+↓
+ChromaDB
+↓
+Document Found
+↓
+Qwen
+↓
+Answer Generated
+↓
+User
+
+This is the complete hands-on execution sequence in plain text format.
+
+Remove every code block and keep plain linesRewrite the full guide without headingsMake each command a separate numbered line
+FilesFiles
+
+
+
+
+Message Copilot
+AI-generated content may be incorrect
