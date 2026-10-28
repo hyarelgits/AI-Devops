@@ -163,3 +163,57 @@ FilesFiles
 
 
 and paste the full output here. That log will show the exact root cause (permissions, missing file, corrupted config, or port conflict), and I'll give you the precise fix.
+
+
+
+
+================================================
+
+
+The screenshot still does not show the actual PostgreSQL error. It only shows that startup failed.
+
+Let's get the real error directly from PostgreSQL.
+
+Run these commands exactly:
+
+Shell
+tail -100 /var/log/postgresql/postgresql-14-main.log
+
+If nothing appears:
+
+Shell
+cat /var/log/postgresql/postgresql-14-main.log
+
+Also run:
+
+Shell
+sudo -u postgres /usr/lib/postgresql/14/bin/postgres \
+-D /var/lib/postgresql/14/main \
+-c config_file=/etc/postgresql/14/main/postgresql.conf
+
+This command will print the exact reason PostgreSQL cannot start.
+
+Also check:
+
+Shell
+ls -l /var/lib/postgresql/14/main/postmaster.pid
+
+and
+
+Shell
+df -h
+
+A common issue is a stale PID file. If postmaster.pid exists, remove it:
+
+Shell
+rm -f /var/lib/postgresql/14/main/postmaster.pid
+
+Then try:
+
+Shell
+pg_ctlcluster 14 main start
+Please send the output of:
+Shell
+tail -100 /var/log/postgresql/postgresql-14-main.log
+
+That log will contain the real root cause, and then I can give you the exact fix in the next step.
