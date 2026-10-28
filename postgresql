@@ -1,0 +1,50 @@
+he important error in your screenshot is:
+
+Plain Text
+postgresql@14-main.service: Can't open PID file
+/run/postgresql/14-main.pid (yet?): Operation not permitted
+
+This usually means the /run/postgresql directory has wrong permissions or is missing.
+
+Run these commands one by one:
+
+Step 1: Check PostgreSQL directory
+Shell
+ls -ld /run/postgresql
+Step 2: Fix ownership
+Shell
+sudo chown postgres:postgres /run/postgresql
+sudo chmod 775 /run/postgresql
+Step 3: Check PostgreSQL configuration
+Shell
+sudo -u postgres /usr/lib/postgresql/14/bin/postgres -D /var/lib/postgresql/14/main -c config_file=/etc/postgresql/14/main/postgresql.conf
+
+This command usually shows the exact error preventing PostgreSQL from starting.
+
+Step 4: Check the log
+Shell
+tail -100 /var/log/postgresql/postgresql-14-main.log
+Step 5: Verify data directory ownership
+Shell
+sudo chown -R postgres:postgres /var/lib/postgresql
+ 
+Step 6: Try starting again
+Shell
+sudo pg_ctlcluster 14 main start
+Step 7: Check status
+Shell
+pg_lsclusters
+
+Expected:
+
+Plain Text
+14 main 5432 online postgres
+ 
+If it still fails
+
+Run:
+
+Shell
+tail -100 /var/log/postgresql/postgresql-14-main.log
+
+and paste the full output here. That log will show the exact root cause (permissions, missing file, corrupted config, or port conflict), and I'll give you the precise fix.
