@@ -1,0 +1,662 @@
+Ollama
+ollama list
+
+Expected:
+
+qwen2.5:3b
+
+------------------
+FastAPI
+Shell
+curl http://localhost:8000
+
+Expected:
+
+JSON
+{"status":"running"}
+
+--------------
+PostgreSQL
+Shell
+sudo -u postgres psql
+
+List databases:
+
+SQL
+\l
+
+Verify database:
+
+Plain Text
+enterprise_ai
+
+-------------
+Docker Containers
+Shell
+docker ps
+
+Expected:
+
+prometheus
+Grafana
+
+
+
+-----------------
+
+
+2. Add More Knowledge Documents
+
+Create more files inside:
+
+
+docs/linux
+docs/security
+docs/network
+docs/runbooks
+docs/incidents
+
+
+nano docs/security/firewall.txt
+
+Firewall Troubleshooting
+Step 1 Check firewall status
+Step 2 Verify ports
+Step 3 Allow required ports
+Step 4 Test connectivity
+
+
+
+--------------
+
+
+Ingest Additional Documents
+
+nano rag/ingest.py
+
+
+cd ~/enterprise-ai-platform/rag
+python3 ingest.py
+
+
+
+python3 query.py
+
+
+How do I recover database?
+
+
+How do I troubleshoot firewall?
+
+-------------------------------
+
+
+
+Connect FastAPI to ChromaDB
+
+
+
+
+
+
+User
+↓
+query.py
+↓
+ChromaDB
+↓
+Qwen
+
+
+
+Next improvement:
+
+
+Browser
+↓
+FastAPI
+↓
+ChromaDB
+↓
+Qwen
+↓
+Answer
+
+
+
+
+Create API endpoint:
+
+
+
+POST /ask
+
+
+so users can ask questions from browser or Postman.
+
+
+
+
+----------------
+
+
+Connect FastAPI to PostgreSQL
+
+
+
+CREATE TABLE questions (
+    id SERIAL PRIMARY KEY,
+    question TEXT,
+    answer TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+tore every question and answer in the database.
+
+
+-----------------------------
+
+
+
+Connect Grafana to PostgreSQL
+
+
+Connections
+↓
+Add Data Source
+↓
+PostgreSQL
+
+
+----
+
+
+Host: localhost:5432
+Database: enterprise_ai
+User: postgres
+Password: <your password>
+
+
+Create dashboards showing:
+
+Questions asked
+Daily usage
+Query count
+Response count
+
+
+--------------------
+
+
+
+Build Real Agents
+
+
+nano agents/doc_agent.py
+nano agents/security_agent.py
+nano agents/incident_agent.py
+nano agents/monitor_agent.py
+
+
+
+
+doc_agent.py       → Documentation questions
+security_agent.py → Security questions
+incident_agent.py → Incident handling
+monitor_agent.py  → Monitoring and alerts
+
+
+
+---------------------
+
+
+Add More Enterprise Data
+
+
+nano docs/incidents/server-down.txt
+nano docs/network/network-troubleshooting.txt
+nano docs/runbooks/application-restart.txt
+
+
+python3 ingest.py
+
+
+Final Enterprise Flow
+
+
+
+User
+↓
+FastAPI
+↓
+Agent Selection
+↓
+ChromaDB Search
+↓
+Qwen LLM
+↓
+PostgreSQL Logging
+↓
+Response
+↓
+Grafana Dashboard
+
+
+---------------------------
+
+
+
+
+next phase
+
+Phase 2 Architecture
+
+User
+ ↓
+FastAPI
+ ↓
+Agent Router
+ ↓
+Document Agent / Security Agent / Incident Agent
+ ↓
+ChromaDB
+ ↓
+Ollama (Qwen)
+ ↓
+PostgreSQL
+ ↓
+Grafana Dashboard
+
+
+
+
+==================
+
+
+Step 31: Create Database Table
+
+
+sudo -u postgres psql
+
+
+\c enterprise_ai
+
+
+CREATE TABLE chat_history (
+    id SERIAL PRIMARY KEY,
+    question TEXT,
+    answer TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+Verify:
+
+\dt
+
+
+chat_history
+
+
+\q
+
+
+
+
+============================
+
+
+
+Step 32: Install PostgreSQL Driver
+
+
+cd ~/enterprise-ai-platform
+source venv/bin/activate
+pip install psycopg2-binary
+
+
+
+pip list | grep psycopg2
+
+
+
+=======================
+
+
+
+Step 33: Create Database Connection File
+
+
+
+nano api/database.py
+
+
+
+import psycopg2
+
+conn = psycopg2.connect(
+    database="enterprise_ai",
+    user="postgres"
+)
+
+cursor = conn.cursor()
+
+
+
+--------------------
+
+
+Step 34: Create First Agent
+
+
+
+nano agents/doc_agent.py
+
+
+def process(question):
+    return f"Document Agent received: {question}"
+
+
+
+----------------------
+
+
+cat agents/doc_agent.py
+
+----------------------
+
+
+Step 35: Create Security Agent
+
+
+nano agents/security_agent.py
+
+
+
+def process(question):
+    return f"Security Agent received: {question}"
+
+
+
+-----------------
+
+Step 36: Create Incident Agent
+
+
+nano agents/incident_agent.py
+
+
+def process(question):
+    return f"Incident Agent received: {question}"
+
+
+
+-----------------------
+
+
+
+Step 37: Create Agent Router
+
+
+
+nano agents/router.py
+
+
+
+
+from doc_agent import process as doc_process
+from security_agent import process as sec_process
+from incident_agent import process as inc_process
+
+def route(question):
+
+    if "security" in question.lower():
+        return sec_process(question)
+
+    if "incident" in question.lower():
+        return inc_process(question)
+
+    return doc_process(question)
+
+
+
+
+-----------------------
+
+
+Step 38: Test Router
+
+
+nano test_router.py
+
+
+
+from agents.router import route
+
+print(route("security firewall issue"))
+print(route("incident server down"))
+print(route("linux commands"))
+
+
+
+
+-------------------
+
+
+
+python3 test_router.py
+
+ op
+
+Security Agent received: security firewall issue
+Incident Agent received: incident server down
+Document Agent received: linux commands
+
+
+------------------
+
+
+
+Step 39: Add More Documents
+
+
+nano docs/security/firewall.txt
+
+Firewall Troubleshooting
+
+Step 1 Check firewall status
+Step 2 Verify open ports
+Step 3 Allow required ports
+Step 4 Test connectivity
+
+
+
+
+------------------
+
+
+Step 40: Create Incident Runbook
+
+
+nano docs/incidents/server-down.txt
+
+
+Server Down Recovery
+
+Check CPU
+Check Memory
+Restart Service
+Verify Logs
+
+
+-----------------
+
+
+Step 41: Re-Ingest Documents
+
+cd ~/enterprise-ai-platform/rag
+python3 ingest.py
+
+op
+
+
+Stored Successfully
+
+
+
+----------------
+
+
+
+Step 42: Ask New Questions
+
+
+
+python3 query.py
+
+
+
+How do I troubleshoot firewall?
+
+How to recover database?
+
+Server is down what should I do?
+
+
+
+----------------------
+
+
+
+
+Step 43: Create API Ask Endpoint
+
+
+nano api/main.py
+
+
+
+@app.get("/ask")
+def ask():
+    return {"message":"Question received"}
+
+
+
+uvicorn api.main:app --reload
+
+
+
+http://SERVER-IP:8000/docs
+
+
+
+GET /
+GET /ask
+
+-'''''''''''''''''''''''''''''''''''''''''============
+
+Step 44: Connect Grafana to PostgreSQL
+
+
+http://SERVER-IP:3000
+
+
+admin
+admin
+
+
+Connections
+↓
+Add Data Source
+↓
+PostgreSQL
+
+
+
+Host: localhost:5432
+Database: enterprise_ai
+User: postgres
+
+
+
+Save & Test.
+
+
+=======================
+
+
+
+User asks question
+↓
+FastAPI receives request
+↓
+Router selects agent
+↓
+Agent searches ChromaDB
+↓
+Qwen generates answer
+↓
+Answer stored in PostgreSQL
+↓
+Grafana displays usage dashboard
+↓
+User receives answer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
