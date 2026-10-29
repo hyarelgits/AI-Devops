@@ -1,0 +1,84 @@
+Add Node Exporter to Prometheus
+
+Open:
+
+Shell
+nano prometheus.yml
+
+Add:
+
+YAML
+scrape_configs:
+- job_name: 'prometheus'
+static_configs:
+- targets: ['localhost:9090']
+ 
+- job_name: 'node-exporter'
+static_configs:
+- targets: ['192.168.11.150:9100']
+
+Save:
+
+Plain Text
+Ctrl + O
+Enter
+Ctrl + X
+
+Restart Prometheus:
+
+Shell
+docker restart prometheus
+Verify Target
+
+Open:
+
+Plain Text
+http://localhost:9090/targets
+
+Expected:
+
+Plain Text
+prometheus UP
+node-exporter UP
+Then Create CPU Panel
+
+Grafana → Add Visualization → Prometheus
+
+Query:
+
+PromQL
+100 - (avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+
+Visualization:
+
+Plain Text
+Gauge
+
+Title:
+
+Plain Text
+CPU Usage %
+ 
+Create Memory Panel
+
+Query:
+
+PromQL
+((node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes) * 100
+
+Visualization:
+
+Plain Text
+Gauge
+
+Title:
+
+Plain Text
+Memory Usage %
+First run this command:
+Shell
+docker ps
+
+and check whether node-exporter is running. If it is not listed, that's the root cause.
+
+FilesFiles
