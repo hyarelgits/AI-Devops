@@ -142,3 +142,120 @@ Shell
 grep -v '^#' /etc/postgresql/14/main/pg_hba.conf
 
 
+
+///////////////////////////////////////////////
+////////////////////////////////////
+
+
+
+
+
+3. Create a new database user
+
+Sometimes the postgres user is restricted. Try:
+
+Shell
+sudo -u postgres psql
+
+Create a dedicated Grafana user:
+
+SQL
+CREATE USER grafana WITH PASSWORD 'Grafana@123';
+GRANT ALL PRIVILEGES ON DATABASE enterprise_ai TO grafana;
+
+Exit:
+
+SQL
+\q
+
+Then in Grafana use:
+
+Plain Text
+Host: 192.168.11.150:5432
+Database: enterprise_ai
+User: grafana
+Password: Grafana@123
+SSL Mode: disable
+4. Check PostgreSQL authentication method
+
+Show these lines:
+
+Shell
+sudo cat /etc/postgresql/*/main/pg_hba.conf | grep host
+
+You should see something like:
+
+Plain Text
+host all all 0.0.0.0/0 scram-sha-256
+
+or
+
+Plain Text
+host all all 0.0.0.0/0 md5
+
+After any change:
+
+Shell
+sudo systemctl restart postgresql
+ 
+5. Verify PostgreSQL is listening
+
+Run:
+
+Shell
+sudo ss -tulpn | grep 5432
+
+Expected:
+
+Plain Text
+0.0.0.0:5432
+ 
+
+or
+
+Plain Text
+192.168.11.150:5432
+ 
+6. Check PostgreSQL logs
+
+Run:
+
+Shell
+sudo journalctl -u postgresql -n 50
+
+or
+
+Shell
+sudo tail -50 /var/log/postgresql/postgresql-*.log
+
+The exact reason is usually shown there.
+
+Please paste the output of these 4 commands:
+
+Shell
+docker ps
+Shell
+sudo -u postgres psql -c "\du"
+Shell
+sudo ss -tulpn | grep 5432
+Shell
+PGPASSWORD='your_password' psql -h 192.168.11.150 -U postgres -d enterprise_ai
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
