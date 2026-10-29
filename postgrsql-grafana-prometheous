@@ -160,6 +160,42 @@ Visualization:
 
 Plain Text
 Table
+=============================
+give permission
+
+Easy Method
+
+Run:
+
+SQL
+GRANT ALL PRIVILEGES
+ON ALL TABLES IN SCHEMA public
+TO postgres;
+
+If datasource user is different:
+
+SQL
+GRANT ALL PRIVILEGES
+ON ALL TABLES IN SCHEMA public
+TO grafana;
+Fix Step 4
+
+Exit PostgreSQL:
+
+SQL
+\q
+Fix Step 5
+
+Return to Grafana.
+
+Run:
+
+SQL
+SELECT COUNT(*) AS total_incidents
+FROM incidents;
+
+
+====================
 
 Click:
 
