@@ -1,0 +1,94 @@
+Good news: your PostgreSQL query is working because Grafana already showed 3 earlier.
+
+The new error:
+
+Plain Text
+TypeError: p(...).toArray is not a function
+
+is likely a Grafana UI/visualization bug, not a PostgreSQL problem.
+
+Try these steps
+Option 1: Create a fresh panel
+Click Back
+Click Add Visualization
+Select your PostgreSQL datasource
+Enter:
+SQL
+SELECT * FROM incidents;
+Select Table visualization
+Click Run Query
+Option 2: Refresh browser
+
+Press:
+
+Plain Text
+Ctrl + F5
+
+Then reopen the dashboard.
+
+Option 3: Check the query output first
+
+Run:
+
+SQL
+SELECT * FROM incidents;
+
+Then click Query Inspector.
+
+If rows are returned there, PostgreSQL is working and the issue is only the Table visualization.
+
+Option 4: Limit the records
+
+Try:
+
+SQL
+SELECT *
+FROM incidents
+LIMIT 10;
+
+and run again.
+
+Option 5: Check Grafana version
+
+In Grafana:
+
+Plain Text
+Administration → Server Admin → Stats
+
+or
+
+Shell
+docker exec -it <grafana-container> grafana-server -v
+
+Tell me the Grafana version.
+
+Quick Test
+
+Run this query:
+
+SQL
+SELECT
+1 AS id,
+'Test' AS status;
+ 
+
+If the Table panel still throws the same error, then Grafana itself has a visualization issue.
+
+If it displays:
+
+Plain Text
+id | status
+1 | Test
+
+then the problem is with the incidents query/result format.
+
+Please send:
+
+Grafana version
+Output of:
+SQL
+SELECT * FROM incidents LIMIT 10;
+ 
+Screenshot of the Query Inspector response
+
+and I'll identify the exact cause.
