@@ -1,0 +1,123 @@
+Yes. If Prometheus is running inside a Docker container, first enter the container and locate prometheus.yml.
+
+Step 1: Find Prometheus Container
+Shell
+docker ps
+
+Example output:
+
+Plain Text
+CONTAINER ID IMAGE NAMES
+abcd1234 prom/prometheus prometheus
+Step 2: Enter the Container
+Shell
+docker exec -it prometheus sh
+
+or
+
+Shell
+docker exec -it prometheus /bin/sh
+Step 3: Locate prometheus.yml
+
+Usually it is here:
+
+Shell
+cd /etc/prometheus
+ls
+
+You should see:
+
+Plain Text
+prometheus.yml
+
+View it:
+
+Shell
+cat /etc/prometheus/prometheus.yml
+Step 4: Add Node Exporter
+
+Edit the file:
+
+Shell
+vi /etc/prometheus/prometheus.yml
+
+or
+
+Shell
+cat > /etc/prometheus/prometheus.yml
+ 
+
+Add:
+
+YAML
+global:
+scrape_interval: 15s
+ 
+scrape_configs:
+- job_name: "prometheus"
+static_configs:
+- targets: ["localhost:9090"]
+ 
+- job_name: "node-exporter"
+static_configs:
+- targets: ["host.docker.internal:9100"]
+
+If host.docker.internal doesn't work on Linux, use your VM IP:
+
+YAML
+- job_name: "node-exporter"
+static_configs:
+- targets: ["192.168.11.150:9100"]
+Step 5: Restart Prometheus
+
+Exit container:
+
+Shell
+exit
+
+Restart:
+
+Shell
+docker restart prometheus
+ 
+Step 6: Verify Target
+
+Open:
+
+Plain Text
+http://localhost:9090/targets
+
+You should now see:
+
+Plain Text
+prometheus UP
+node-exporter UP
+Step 7: Test in Grafana
+
+Query:
+
+PromQL
+up
+
+Expected:
+
+Plain Text
+up{job="prometheus"} 1
+up{job="node-exporter"} 1
+
+Then CPU panel:
+
+PromQL
+100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+
+Memory panel:
+
+PromQL
+((node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes) * 100
+
+If you're not sure where prometheus.yml is, run:
+
+Shell
+docker exec -it prometheus find / -name prometheus.yml 2>/dev/null
+
+and us
