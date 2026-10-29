@@ -88,7 +88,169 @@ You should see incident data.
 
 
 =================
+run query if incident dat anow show then
 
+
+SELECT
+id,
+incident_name,
+severity,
+status,
+created_time
+FROM incidents;
+
+Run Query
+
+
+If Still No Data
+
+In Grafana query editor, run this:
+
+SQL
+SELECT COUNT(*) FROM incidents;
+
+Click:
+
+Plain Text
+Run Query
+
+Expected:
+
+Plain Text
+3
+
+If you see:
+
+Plain Text
+3
+
+then Grafana is successfully reading PostgreSQL.
+
+Check Time Filter
+
+At the top of Grafana, I can see:
+
+Plain Text
+Last 6 hou*s
+
+Change it to:
+
+Plain Text
+Last*30 days
+
+Then click:
+
+Plain Text
+*efresh
+
+Many Grafana dashboards automatically filter timestamp columns.
+
+Create First Working Visualization
+
+Query:
+
+SQL
+SELE*T
+incident_name,
+severity,
+status
+*ROM incidents;
+
+Visualization:
+
+Plain Text
+Table
+
+Click:
+
+Plain Text
+Run Query
+
+You should see:
+
+Plain Text
+CPU High High *pen
+Database Down Critical Closed
+Memory Usage High Medium Open
+Create Total Incidents Panel
+
+New Panel → Code
+
+SQL
+SELECT COUNT(*) AS total_incidents
+FROM incidents;
+
+Visualization:
+
+Plain Text
+Stat
+
+Result:
+
+Plain Text
+3
+Create Open Incidents Panel
+SQL
+SELECT COUNT(*) AS open_incidents
+FROM incidents
+WHERE status='Open';
+
+Result:
+
+Plain Text
+2
+Create Severity Chart
+SQL
+SELECT
+severity,
+COUNT(*) AS total
+FROM incidents
+GROUP BY severity;
+
+Visualization:
+
+Plain Text
+Pie Chart
+If Nothing Appears
+
+Click:
+
+Plain Text
+Query Inspector
+
+Top right in Grafana.
+
+Then send me a screenshot of:
+
+Plain Text
+Query Inspector
+
+or the result of:
+
+SQL
+SELECT COUNT(*) FROM incidents;
+
+inside Grafana.
+
+Since PostgreSQL definitely contains data, we only need to identify why Grafana isn't displaying it. We're very close now. 🚀
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+======================
 
 
 Next Step 4: Create Incident Count Panel
