@@ -236,9 +236,124 @@ Since PostgreSQL definitely contains data, we only need to identify why Grafana 
 
 
 
+SELECT COUNT(*) AS total_incidents
+FROM public.incidents;
+
+Run Query
 
 
+Step 6
 
+On the right side select visualization:
+
+Plain Text
+Stat
+
+Title:
+
+Plain Text
+Total Incidents
+Step 7
+
+Click:
+
+Plain Text
+Save
+
+Dashboard Name:
+
+Plain Text
+Enterprise AI Dashboard
+Step 8
+
+Add another panel.
+
+Query:
+
+SQL
+SELECT COUNT(*) AS open_incidents
+FROM public.incidents
+WHERE status='Open';
+
+Visualization:
+
+Plain Text
+Stat
+
+Title:
+
+Plain Text
+Open Incidents
+
+Expected:
+
+Plain Text
+2
+ 
+Step 9
+
+Add another panel.
+
+Query:
+
+SQL
+SELECT
+incident_name,
+severity,
+status
+FROM public.incidents;
+
+Visualization:
+
+Plain Text
+Table
+
+Title:
+
+Plain Text
+Incident List
+
+Expected:
+
+Plain Text
+CPU High
+Database Down
+Memory Usage High
+Step 10
+
+Add Pie Chart.
+
+Query:
+
+SQL
+SELECT
+severity,
+COUNT(*) AS total
+FROM public.incidents
+GROUP BY severity;
+
+Visualization:
+
+Plain Text
+Pie Chart
+
+Title:
+
+Plain Text
+Incidents by Severity
+ 
+Final Dashboard
+
+Should contain:
+
+Plain Text
+Total Incidents : 3
+ 
+Open Incidents : 2
+ 
+Incident List : Table
+ 
+Incidents by Severity : Pie Chart
 
 
 
