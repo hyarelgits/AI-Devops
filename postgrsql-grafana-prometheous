@@ -1,0 +1,317 @@
+✅ Ubuntu VM
+ ✅ Ollama + Qwen
+ ✅ PostgreSQL
+ ✅ Grafana
+ ✅ PostgreSQL connected as Grafana datasource
+
+So the next question is:
+
+What should Grafana show?
+
+Right now Grafana is connected, but there is probably no useful data to display.
+
+Next Step 1: Create Incident Table
+
+udo -u postgres psql enterprise_ai
+
+======================
+
+
+CREATE TABLE incidents (
+    id SERIAL PRIMARY KEY,
+    incident_name VARCHAR(100),
+    severity VARCHAR(20),
+    status VARCHAR(20),
+    created_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+=================
+
+\d incidents
+
+
+Next Step 2: Insert Sample Data
+
+
+
+INSERT INTO incidents
+(incident_name,severity,status)
+
+VALUES
+
+('CPU High','High','Open'),
+
+('Database Down','Critical','Closed'),
+
+('Memory Usage High','Medium','Open');
+
+
+
+SELECT * FROM incidents;
+
+
+3 rows
+
+
+================
+
+Next Step 3: Build Grafana Dashboard
+
+
+http://SERVER-IP:3000
+
+
+
+Dashboards
+↓
+New
+↓
+Add Visualization
+
+
+Source:
+
+Plain Text
+PostgreSQL
+
+
+
+Query:
+
+SELECT * FROM incidents;
+
+
+Run query.
+
+You should see incident data.
+
+
+=================
+
+
+
+Next Step 4: Create Incident Count Panel
+
+
+SELECT COUNT(*) AS total_incidents
+FROM in*idents;
+
+
+
+Dashboard now shows:
+
+Total Incidents
+3
+
+
+
+=================
+
+
+Next Step 5: Create Open Incident Panel
+
+
+SELECT COUNT(*) AS open_incidents
+FROM incidents
+WHERE status='Open';
+
+
+=====================
+
+
+Next Step 6: Create Critical Incident Panel
+
+
+SELECT COUNT(*) AS critical_incidents
+FROM incid*nts
+WHERE severity='Critical';
+```*
+
+===================
+
+
+Now Dashboard Shows
+
+
+Total Incidents
+
+Open Incidents
+*Critical Incidents
+
+
+This is your first working dashboard.
+
+
+==========================
+
+
+Next Step 7: Add Prometheus
+
+Check if Prometheus exists:
+
+Check if Prometheus exists:
+
+
+
+doc*er ps
+
+
+
+docker*run -d \
+--name prometheus \
+-p 90*0:9090 \
+prom/Prometheus
+
+
+
+http://SERVER-IP:9090
+``*
+
+Next Step 8: Add Node Exporter
+Shell
+
+docker run -d \
+--na*e node-exporter \
+-p 9100:9100 \
+p*om/node-exporter
+
+
+http://SERVER-IP:9100/metrics
+*
+
+
+Next Step 9: Connect Grafana to Prometheus
+
+Connections
+↓
+Data Sources
+↓
+Ad* Data Source
+↓
+Prometheus
+
+
+http://PROMETHEUS-SERVER:9090
+
+Next Step 10: Create Monitoring Dashboard
+
+Add panels:
+
+PROMSql
+CPU:
+
+
+1*0 - (avg(rate(node_cpu_seconds_tot*l{mode="idle"}[5m])) * 100)
+
+Memory:
+
+
+(node_memory_MemT*tal_bytes - node_memory_MemAvailab*e_bytes) / node_memory_MemTotal_by*es * 100
+
+
+
+Disk:
+
+100*- ((node_filesystem_avail_bytes * *00) / node_filesystem_size_bytes)
+*
+
+
+
+
+========================
+
+
+
+After This
+
+You will have:
+
+
+
+Dashboard 1
+----------*---
+Incident Dashboard
+(PostgreSQL*
+
+Dashboard 2
+--------------
+Infra*tructure Dashboard
+(Prometheus)
+``*
+
+
+=============
+
+
+
+Next Project Milestone
+
+After Grafana is showing data:
+
+
+
+Prometheus
+    ↓
+Alert
+    ↓
+Py*hon Agent
+    ↓
+Insert Record
+    *
+PostgreSQL
+    ↓
+Grafana
+
+
+
+=================
+
+
+
+This is where your incident_agent.py will come in.
+
+So your immediate next task is:
+
+Create incidents table
+Insert sample records
+Build Grafana incident dashboard
+Install/verify Prometheus
+Add Node Exporter
+Create CPU/Memory/Disk panels
+
+Once that is done, the next phase is automatic incident creation using Python agents. 🚀
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
