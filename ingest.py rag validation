@@ -20,6 +20,148 @@ collection.add(
 
         Find PID
 
+============================================
+
+
+
+Fix 2: Remove Old Chroma Data
+
+Go to project root:
+
+Shell
+cd ~/enterprise-ai-platform
+
+Delete old database:
+
+Shell
+rm -rf chroma_db/*
+
+Verify:
+
+Shell
+ls chroma_db
+
+Expected:
+
+Plain Text
+(no output)
+Fix 3: Re-Ingest
+
+Go back:
+
+Shell
+cd rag
+
+Run:
+
+Shell
+python3 ingest.py
+
+Expected:
+
+Plain Text
+Stored
+Fix 4: Modify search.py
+
+Open:
+
+Shell
+nano search.py
+
+Find:
+
+Python
+query_texts=["recover database"]
+
+Change to:
+
+Python
+query_texts=["cpu high"]
+
+Save and exit.
+
+Fix 5: Test Search
+
+Run:
+
+Shell
+python3 search.py
+
+Expected output:
+
+Plain Text
+Issue High CPU Usage
+ 
+Observed CPU 95 Percent
+ 
+Impact Application Slow
+ 
+Reason Application Consuming Excessive CPU
+ 
+Reason Infinite Loop
+
+If you see that text:
+
+Plain Text
+✅ ChromaDB working
+✅ CPU document stored
+Fix 6: Test Real RAG
+
+Run:
+
+Shell
+python3 query.py
+
+Ask:
+
+Plain Text
+why cpu is high
+
+Expected answer:
+
+Plain Text
+Possible Reasons
+ 
+Application consuming excessive CPU
+ 
+Infinite Loop
+ 
+High User Requests
+ 
+Suggested Actions
+ 
+Run top
+ 
+Find PID
+ 
+Check Logs
+ 
+Restart Service
+How RAG Works (Kid Version)
+
+Current:
+
+Plain Text
+Question
+↓
+Qwen
+↓
+Generic Answer
+
+After fix:
+
+Plain Text
+Question
+↓
+ChromaDB
+↓
+CPU Document Found
+↓
+Qwen
+↓
+Answer From Your Runbook
+
+
         Check Logs
 
         Restart Service
