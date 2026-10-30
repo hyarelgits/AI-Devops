@@ -523,6 +523,103 @@ Plain Text
 
 Then we'll build the CPU/Memory/Disk monitoring dashboard.
 
+
+
+
+999999999999999999999999999999999999
+
+
+
+Faster Debug
+
+Run:
+
+Shell
+docker run --rm \
+-v ~/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml \
+prom/prometheus \
+--config.file=/etc/prometheus/prometheus.yml
+
+This will validate the YAML and show the exact line causing the failure.
+
+Check Your YAML
+
+Your screenshot looked visually correct, but Linux Prometheus is very sensitive.
+
+Run:
+
+Shell
+cat ~/prometheus/prometheus.yml
+
+The file should look exactly like:
+
+YAML
+global:
+scrape_interval: 15s
+ 
+scrape_configs:
+- job_name: "prometheus"
+static_configs:
+- targets:
+- "localhost:9090"
+ 
+- job_name: "node-exporter"
+static_configs:
+- targets:
+- "172.17.0.1:9100"
+Important
+
+Replace:
+
+YAML
+host.docker.internal:9100
+
+with:
+
+YAML
+172.17.0.1:9100
+
+On Linux, host.docker.internal often does not work inside containers.
+
+Verify File Before Starting
+
+Run:
+
+Shell
+cat ~/prometheus/prometheus.yml
+
+and make sure every level has proper spaces.
+
+Then Recreate Prometheus
+Shell
+docker rm -f prometheus
+Shell
+docker run -d \
+--name prometheus \
+-p 9090:9090 \
+-v ~/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml \
+prom/prometheus
+
+Check:
+
+Shell
+docker ps
+
+Expected:
+
+Plain Text
+prometheus Up
+grafana Up
+node-exporter Up
+Right Now
+
+Please run:
+
+Shell
+docker logs prometheus
+
+and paste the output. That single command will show the exact reason for Exited (2) and we can fix it immediately.
+
 and
 
 Shell
