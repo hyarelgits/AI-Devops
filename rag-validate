@@ -1,0 +1,177 @@
+Perfect! ✅
+
+Your screenshot shows you've created a new document:
+
+Plain Text
+cpu-high.txt
+ 
+Issue: High CPU Usage
+ 
+Observed CPU: 95%
+ 
+Impact: Application slow
+
+This is good, but it's not enough yet for RAG.
+
+Right now, the document only describes the problem. It does not contain the reasons or resolution steps.
+
+Update the file to:
+
+Plain Text
+Issue: High CPU Usage
+ 
+Observed CPU: 95%
+ 
+Impact: Application slow
+ 
+Possible Reasons:
+ 
+1. Application consuming excessive CPU
+ 
+2. Infinite loop in application
+ 
+3. High number of user requests
+ 
+4. Long running database query
+ 
+Resolution:
+ 
+Step 1 Run top
+ 
+Step 2 Identify process consuming CPU
+ 
+Step 3 Check application logs
+ 
+Step 4 Restart application service
+ 
+Step 5 Verify CPU utilization below 80%
+
+Save:
+
+Plain Text
+Ctrl + O
+Enter
+Ctrl + X
+Next Step
+
+Your current ingest.py is probably storing only:
+
+Plain Text
+Database Recovery Step 1 Backup
+
+You now need to ingest the CPU document.
+
+Run:
+
+Shell
+cat ingest.py
+
+If it still contains only:
+
+Python
+documents=[
+"Database Recovery Step 1 Backup"
+]
+
+then modify it to include the CPU document.
+
+Example:
+
+Python
+collection.add(
+ids=["1","2"],
+documents=[
+"Database Recovery Step 1 Backup",
+"Issue High CPU Usage Observed CPU 95 Percent Application slow Application consuming excessive CPU Infinite loop High user requests Long running database query Run top Identify process Check logs Restart service"
+]
+)
+
+Then re-run:
+
+Shell
+python3 ingest.py
+
+Expected:
+
+Plain Text
+Stored
+Test Search
+
+Edit search.py:
+
+Python
+query_texts=["cpu high"]
+
+Run:
+
+Shell
+python3 search.py
+
+Expected result should contain:
+
+Plain Text
+Issue High CPU Usage
+Observed CPU 95%
+Application slow
+Test RAG
+
+Run:
+
+Shell
+python3 query.py
+
+Ask:
+
+Plain Text
+why cpu is high
+
+Good RAG answer:
+
+Plain Text
+Possible reasons:
+- Application consuming excessive CPU
+- Infinite loop
+- High user requests
+- Long running database query
+ 
+Recommended actions:
+- Run top
+- Identify the high CPU process
+- Check logs
+- Restart service if required
+Simple Validation
+
+Ask yourself:
+
+Does the answer contain words from my document?
+
+For example:
+
+Plain Text
+Observed CPU 95%
+Run top
+Restart service
+
+If YES:
+
+Plain Text
+✅ RAG is working
+
+If the answer is only generic AI knowledge:
+
+Plain Text
+Background apps
+Malware
+System services
+
+then:
+
+Plain Text
+❌ RAG is not using your document yet
+
+Your next command should be:
+
+Shell
+cat ingest.py
+
+because we need to confirm that the new cpu-high.txt content is actually being loaded into ChromaDB.
