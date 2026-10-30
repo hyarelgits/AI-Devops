@@ -353,11 +353,122 @@ That becomes a real AI-powered Operations Platform (AIOps). 🚀
 
 
 
+lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
+
+replu with qwen ollama anser
+
+
+@app.get("/ask")
+def ask(question: str):
+
+    client = chromadb.PersistentClient(
+        path="/root/enterprise-ai-platform/chroma_db"
+    )
+
+    collection = client.get_collection(
+        "enterprise_docs"
+    )
+
+    result = collection.query(
+        query_texts=[question],
+        n_results=1
+    )
+
+    context = result["documents"][0][0]
+
+    prompt = f"""
+Answer using the following context.
+
+Context:
+{context}
+
+Question:
+{question}
+"""
+
+    response = subprocess.check_output(
+        [
+            "ollama",
+            "run",
+            "qwen2.5:3b",
+            prompt
+        ],
+        text=True
+    )
+
+    return {
+        "question": question,
+        "answer": response
+    }
+
+save
+
+
+===================
 
 
 
+Test
 
+Open:
 
+Plain Text
+http://<VM-IP>:8000/docs
+
+Go to:
+
+Plain Text
+GET /ask
+
+Ask:
+
+Plain Text
+why cpu speed is high
+
+Click:
+
+Plain Text
+Execute
+Expected Result
+
+Instead of:
+
+JSON
+{
+"context":"Issue High CPU Usage..."
+}
+
+you will get:
+
+JSON
+{
+"question":"why cpu speed is high",
+"answer":"CPU usage is high because an application is consuming excessive CPU resources. Recommended actions are to run top, identify the PID, check logs and restart the affected service."
+}
+What You've Built After This
+Plain Text
+Swagger UI
+↓
+FastAPI
+↓
+ChromaDB
+↓
+cpu-high.txt
+↓
+Qwen
+↓
+AI Answer
+ 
+
+This is no longer just a search API.
+
+It becomes a real:
+
+Plain Text
+RAG API
+(Retrieval + Generation)
+
+which is exactly what learners expect to see in an enterprise AI project.
 
 
     
