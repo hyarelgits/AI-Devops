@@ -626,3 +626,111 @@ Shell
 docker inspect prometheus --format='{{.State.ExitCode}}'
 
 Those two outputs will tell us exactly why the container exits
+
+
+===============================================================65555555555555555555555555555===============
+
+docker start prometheus
+
+Immediately run:
+
+Shell
+docker exec -it prometheus cat /etc/prometheus/prometheus.yml
+
+If docker exec fails because the container exits too quickly, use:
+
+Shell
+docker cp prometheus:/etc/prometheus/prometheus.yml .
+
+Then:
+
+Shell
+cat prometheus.yml
+Step 2: Show the real error
+
+Run:
+
+Shell
+docker logs prometheus --tail 50
+ 
+
+This is the most important command.
+
+The logs should show something like:
+
+Plain Text
+yaml: line X: did not find expected key
+
+or
+
+Plain Text
+error loading config
+Step 3: Easiest Recovery
+
+Since this is a lab, don't fight with the broken container.
+
+Remove it:
+
+Shell
+docker rm -f prometheus
+
+Create a fresh container:
+
+Shell
+docker run -d \
+--name prometheus \
+-p 9090:9090 \
+prom/prometheus
+
+Check:
+
+Shell
+docker ps
+
+Expected:
+
+Plain Text
+prometheus Up
+grafana Up
+node-exporter Up
+Step 4: Then Configure Node Exporter Properly
+
+Instead of editing files inside containers, create a host file:
+
+Shell
+mkdir -p ~/prometheus
+nano ~/prometheus/prometheus.yml
+
+Paste:
+
+YAML
+global:
+scrape_interval: 15s
+ 
+scrape_configs:
+- job_name: "prometheus"
+static_configs:
+- targets:
+- "localhost:9090"
+ 
+- job_name: "node-exporter"
+static_configs:
+- targets:
+- "172.17.0.1:9100"
+
+Save:
+
+Plain Text
+Ctrl + O
+Enter
+Ctrl + X
+
+Then recreate Prometheus with that file.
+
+Right now
+
+Run:
+
+Shell
+docker logs prometheus --tail 50
+
