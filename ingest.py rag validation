@@ -1,0 +1,28 @@
+collection.add(
+    ids=["1","2"],
+    documents=[
+        "Database Recovery Step 1 Backup",
+
+        """
+        Issue High CPU Usage
+
+        Observed CPU 95 Percent
+
+        Impact Application Slow
+
+        Reason Application Consuming Excessive CPU
+
+        Reason Infinite Loop
+
+        Reason High User Requests
+
+        Resolution Run Top
+
+        Find PID
+
+        Check Logs
+
+        Restart Service
+        """
+    ]
+)
