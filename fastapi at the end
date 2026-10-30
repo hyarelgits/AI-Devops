@@ -1,0 +1,166 @@
+from fastapi import FastAPI
+import chromadb
+import subprocess
+
+app = FastAPI()
+
+@app.get("/")
+def home():
+    return {"message":"AI Operations Assistant Running"}
+
+@app.get("/ask")
+def ask(question: str):
+
+    client = chromadb.PersistentClient(
+        path="../chroma_db"
+    )
+
+    collection = client.get_collection(
+        "enterprise_docs"
+    )
+
+    result = collection.query(
+        query_texts=[question],
+        n_results=1
+    )
+
+    context = result["documents"][0][0]
+
+    return {
+        "question": question,
+        "context": context
+    }
+
+
+    =================================
+
+
+Restart FastAPI
+Shell
+uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+
+
+====================
+
+
+Open Swagger
+
+Go to:
+
+Plain Text
+http://VM-IP:8000/docs
+
+
+
+
+================
+
+Now you should see:
+
+Plain Text
+GET /
+GET /ask
+
+================
+
+Test It
+
+Click:
+
+Plain Text
+GET /ask
+
+Then:
+
+Plain Text
+Try it out
+
+Enter:
+
+Plain Text
+why cpu is high
+
+=================
+
+
+lick:
+
+Plain Text
+Execute
+
+
+
+===============
+
+
+
+Expected result:
+
+JSON
+{
+"question": "why cpu is high",
+"context": "Issue High CPU Usage ..."
+}
+
+
+===============
+
+
+Final Goal
+
+Next we replace:
+
+JSON
+"context":"Issue High CPU Usage..."
+
+
+==============
+
+
+User
+ ↓
+Swagger UI
+ ↓
+FastAPI
+ ↓
+ChromaDB
+ ↓
+Qwen
+ ↓
+Answer
+
+
+============
+
+Then your learners can use:
+
+Plain Text
+http://VM-IP:8000/docs
+
+instead of:
+
+Shell
+python3 query.py
+
+to ask:
+
+Plain Text
+why cpu is high
+disk full
+postgres service down
+network issue
+
+and get AI-generated answers from the browser.
+
+This is the next logical step after your working query.py. 🚀
+
+
+
+
+
+
+
+
+
+
+    
