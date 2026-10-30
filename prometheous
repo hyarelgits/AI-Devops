@@ -287,6 +287,234 @@ Run:
 Shell
 docker logs prometheus --tail 200
 
+
+======================================================================9999=====================
+
+
+Next Step: Monitor Node Exporter
+
+Currently Prometheus only monitors itself.
+
+Let's make Prometheus monitor the server.
+
+Step 1
+
+Open Prometheus configuration:
+
+Shell
+docker exec -it prometheus sh
+
+Inside container:
+
+Shell
+cat /etc/prometheus/prometheus.yml
+
+You should see:
+
+YAML
+scrape_configs:
+- job_name: prometheus
+ 
+Step 2
+
+Add Node Exporter target.
+
+Node Exporter runs on:
+
+Plain Text
+9100
+
+Add:
+
+YAML
+scrape_configs:
+- job_name: prometheus
+static_configs:
+- targets:
+- localhost:9090
+ 
+- job_name: node-exporter
+static_configs:
+- targets:
+- <YOUR_VM_IP>:9100
+ 
+
+Example:
+
+YAML
+targets:
+- 192.168.1.100:9100
+Step 3
+
+Restart Prometheus
+
+Shell
+docker restart prometheus
+Step 4
+
+Verify
+
+Open:
+
+Plain Text
+http://localhost:9090/targets
+
+Now you should see:
+
+Plain Text
+prometheus UP
+ 
+node-exporter UP
+Next Step: Add Prometheus Datasource in Grafana
+
+Grafana :
+
+Plain Text
+Connections
+↓
+Data Sources
+↓
+Add New Data Source
+↓
+Prometheus
+
+URL:
+
+Plain Text
+http://localhost:9090
+
+Click:
+
+Plain Text
+Save & Test
+
+Expected:
+
+Plain Text
+Data source is working
+Next Step: Create CPU Dashboard
+
+Dashboard
+
+Plain Text
+New Dashboard
+↓
+Add Visualization
+↓
+Prometheus
+
+Query:
+
+PromQL
+up
+
+Run Query
+
+Expected:
+
+Plain Text
+1
+Create CPU Usage Panel
+
+Query:
+
+PromQL
+100 - (
+avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100
+)
+
+Visualization:
+
+Plain Text
+Gauge
+
+Title:
+
+Plain Text
+CPU Usage
+Create Memory Panel
+
+Query:
+
+PromQL
+(node_memory_MemTotal_bytes -
+node_memory_MemAvailable_bytes)
+/
+node_memory_MemTotal_bytes
+* 100
+
+Visualization:
+
+Plain Text
+Gauge
+
+Title:
+
+Plain Text
+Memory Usage
+Create Disk Panel
+
+Query:
+
+PromQL
+100 -
+(
+(node_filesystem_avail_bytes * 100)
+/
+node_filesystem_size_bytes
+)
+
+Visualization:
+
+Plain Text
+Gauge
+
+Title:
+
+Plain Text
+Disk Usage
+ 
+After This
+
+Your dashboard should show:
+
+Plain Text
+CPU Usage
+ 
+Memory Usage
+ 
+Disk Usage
+ 
+Node Status
+Next Project Phase
+
+After monitoring works:
+
+Plain Text
+Prometheus
+↓
+Alert Rules
+↓
+Python Agent
+↓
+Insert Incident in PostgreSQL
+↓
+Grafana Incident Dashboard
+↓
+AI Assistant (Qwen + RAG)
+
+🚀 Right now, the very next thing to do is:
+
+Add Prometheus datasource in Grafana
+Create a panel with query:
+PromQL
+up
+Confirm it shows:
+Plain Text
+1
+
+Then we'll build the CPU/Memory/Disk monitoring dashboard.
+
 and
 
 Shell
